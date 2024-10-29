@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1e8cb7603ea7f164bb12b6ad907c77cc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - monologuePanel: {instanceID: 0}
+  - player: {instanceID: 0}
+  - _playerController: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
