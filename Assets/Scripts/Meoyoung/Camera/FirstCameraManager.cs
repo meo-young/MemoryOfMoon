@@ -63,12 +63,6 @@ public class FirstCameraManager : MonoBehaviour
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
 
             this.transform.position = targetPosition;
-            /*this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
-
-            float clampedX = Mathf.Clamp(this.transform.position.x, minBound.x + halfWidth, maxBound.x - halfWidth);
-            float clampedY = Mathf.Clamp(this.transform.position.y, minBound.y + halfHeight, maxBound.y - halfHeight);
-
-            this.transform.position = new Vector3(clampedX, clampedY, this.transform.position.z);*/
         }
     }
 

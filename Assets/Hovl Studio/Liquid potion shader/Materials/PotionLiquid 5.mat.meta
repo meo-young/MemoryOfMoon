@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: af92efdbf02baed4185e4570bf8e6d3d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 259585
+  packageName: Liquid potion shader
+  packageVersion: 1.0
+  assetPath: Assets/Hovl Studio/Liquid potion shader/Materials/PotionLiquid 5.mat
+  uploadId: 631123

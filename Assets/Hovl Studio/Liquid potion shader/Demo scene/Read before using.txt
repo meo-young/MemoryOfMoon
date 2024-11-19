@@ -1,0 +1,2 @@
+Potion can look full or empty in HDRP or with Linear color space (Player settings).
+Fullness value is different for Linear and Gamma color space, so try value between 3 and -3.
