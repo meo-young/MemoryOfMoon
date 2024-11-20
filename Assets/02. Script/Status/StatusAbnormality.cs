@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class StatusAbnormality : MonoBehaviour
 {
@@ -16,17 +17,20 @@ public class StatusAbnormality : MonoBehaviour
         Right = 1,
         Left = 2,
     }
+    [SerializeField] AbnormalityType type;
 
+    // Stun
     [SerializeField] float maxGague = 100f;
     [SerializeField] float currentGague = 20f;
     [SerializeField] float descentSpeed = 5f;
     [SerializeField] float increaseQuantity = 5f;
-
     [SerializeField] bool statusFlag = false;
     [SerializeField] KeyType keyType;
     [SerializeField] bool successFlag = false;
 
-    [SerializeField] AbnormalityType type;
+    // Noise
+    [SerializeField] UniversalRendererData rendererData;
+
 
     private void Start()
     {
@@ -38,6 +42,10 @@ public class StatusAbnormality : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y))
             statusFlag = true;
+
+
+        if(Input.GetKeyDown(KeyCode.L))
+            EndNoise();
 
         if (!statusFlag)
             return;
@@ -52,6 +60,7 @@ public class StatusAbnormality : MonoBehaviour
                 break;
 
             case AbnormalityType.Noise:
+                Noise();
                 break;
         }
     }
@@ -79,6 +88,11 @@ public class StatusAbnormality : MonoBehaviour
             successFlag = true;
             statusFlag = false;
             Debug.Log("성공");
+        }
+
+        if(currentGague <= 0)
+        {
+            Debug.Log("실패");
         }
     }
 
@@ -111,7 +125,14 @@ public class StatusAbnormality : MonoBehaviour
 
     void Noise()
     {
+        for (int i = 0; i < rendererData.rendererFeatures.Count; i++)
+            rendererData.rendererFeatures[i].SetActive(true);
+    }
 
+    void EndNoise()
+    {
+        for (int i = 0; i < rendererData.rendererFeatures.Count; i++)
+            rendererData.rendererFeatures[i].SetActive(false);
     }
 
     void Poison()
