@@ -110,7 +110,7 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _Fresnel_power: 3
-    - _Fullness: 0.43
+    - _Fullness: 0.39
     - _Lerp_Top: 0.193
     - _OpaqueCullMode: 2
     - _Parallax_Amplitude: 15
