@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -7,7 +8,7 @@ public class StatusAbnormality : MonoBehaviour
     public enum AbnormalityType
     {
         Stun = 0,
-        Poison = 1,
+        Glare = 1,
         Noise = 2
     }
 
@@ -22,7 +23,6 @@ public class StatusAbnormality : MonoBehaviour
     [SerializeField] bool statusFlag = false;
 
 
-    // Stun
     [Header("# Stun")]
     [SerializeField] float maxGague = 100f;
     [SerializeField] float currentGague = 20f;
@@ -31,12 +31,15 @@ public class StatusAbnormality : MonoBehaviour
     [SerializeField] KeyType keyType;
     [SerializeField] bool successFlag = false;
 
-    // Noise
     [Header("# Noise")]
-    [SerializeField] UniversalRendererData rendererData;
+    [SerializeField] Renderer2DData rendererData;
     [SerializeField] float activationTime = 3.0f;
     [SerializeField] GameObject globalVolume;
 
+    [Header("# Glare")]
+    [SerializeField] SpriteRenderer glareSprite;
+    [SerializeField] float glareActivationTime = 2.0f;
+    [SerializeField] float glareDelay = 3.0f;
 
     private void Start()
     {
@@ -53,12 +56,13 @@ public class StatusAbnormality : MonoBehaviour
             return;
 
         switch (type)
-        { 
+        {
             case AbnormalityType.Stun:
                 Stun();
                 break;
 
-            case AbnormalityType.Poison:
+            case AbnormalityType.Glare:
+                Glare();
                 break;
 
             case AbnormalityType.Noise:
@@ -71,7 +75,7 @@ public class StatusAbnormality : MonoBehaviour
     {
         currentGague -= descentSpeed * Time.deltaTime;
 
-        switch(keyType)
+        switch (keyType)
         {
             case KeyType.None:
                 GetRightInput();
@@ -85,14 +89,14 @@ public class StatusAbnormality : MonoBehaviour
                 break;
         }
 
-        if(currentGague > maxGague)
+        if (currentGague > maxGague)
         {
             successFlag = true;
             statusFlag = false;
             Debug.Log("성공");
         }
 
-        if(currentGague <= 0)
+        if (currentGague <= 0)
         {
             Debug.Log("실패");
         }
@@ -149,10 +153,55 @@ public class StatusAbnormality : MonoBehaviour
         statusFlag = false;
     }
     #endregion
-    void Poison()
+    void Glare()
     {
+        statusFlag = false;
+        FadeIn();
+        Invoke(nameof(FadeOut), glareDelay + glareActivationTime);
+    }
 
+    void FadeOut()
+    {
+        StartCoroutine(FadeOutCoroutine(glareSprite, glareDelay));
+    }
+
+    void FadeIn()
+    {
+        StartCoroutine(FadeInCoroutine(glareSprite, glareDelay));
     }
 
 
+    IEnumerator FadeOutCoroutine(SpriteRenderer _sprite, float _delay)
+    {
+        Color color = _sprite.color;
+        float startAlpha = color.a;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _delay)
+        {
+            elapsedTime += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _delay);
+            _sprite.color = new Color(color.r, color.g, color.b, newAlpha);
+            yield return null;
+        }
+        color.a = 0;
+        _sprite.color = new Color(color.r, color.g, color.b, 0);
+    }
+
+    IEnumerator FadeInCoroutine(SpriteRenderer _sprite, float _delay)
+    {
+        Color color = _sprite.color;
+        float startAlpha = color.a;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _delay)
+        {
+            elapsedTime += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, 1f, elapsedTime / _delay);
+            _sprite.color = new Color(color.r, color.g, color.b, newAlpha);
+            yield return null;
+        }
+        color.a = 1;
+        _sprite.color = new Color(color.r, color.g, color.b, 1);
+    }
 }
