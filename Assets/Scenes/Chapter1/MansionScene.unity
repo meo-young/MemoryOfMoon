@@ -113704,7 +113704,8 @@ MonoBehaviour:
   globalVolume: {fileID: 0}
   glareSprite: {fileID: 1920978579}
   glareActivationTime: 2
-  glareDelay: 3
+  glareStartDelay: 0.3
+  glareEndDelay: 3
 --- !u!4 &1957900746
 Transform:
   m_ObjectHideFlags: 0

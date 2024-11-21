@@ -39,7 +39,8 @@ public class StatusAbnormality : MonoBehaviour
     [Header("# Glare")]
     [SerializeField] SpriteRenderer glareSprite;
     [SerializeField] float glareActivationTime = 2.0f;
-    [SerializeField] float glareDelay = 3.0f;
+    [SerializeField] float glareStartDelay = 0.3f;
+    [SerializeField] float glareEndDelay = 3.0f;
 
     private void Start()
     {
@@ -157,17 +158,17 @@ public class StatusAbnormality : MonoBehaviour
     {
         statusFlag = false;
         FadeIn();
-        Invoke(nameof(FadeOut), glareDelay + glareActivationTime);
+        Invoke(nameof(FadeOut), glareStartDelay + glareActivationTime);
     }
 
     void FadeOut()
     {
-        StartCoroutine(FadeOutCoroutine(glareSprite, glareDelay));
+        StartCoroutine(FadeOutCoroutine(glareSprite, glareEndDelay));
     }
 
     void FadeIn()
     {
-        StartCoroutine(FadeInCoroutine(glareSprite, glareDelay));
+        StartCoroutine(FadeInCoroutine(glareSprite, glareStartDelay));
     }
 
 
