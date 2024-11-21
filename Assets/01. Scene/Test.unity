@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 614952319}
   - component: {fileID: 614952318}
   m_Layer: 0
-  m_Name: Status Test Object (1)
+  m_Name: Noise Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1500397858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 1756147152}
   - component: {fileID: 1756147151}
   m_Layer: 0
-  m_Name: Status Test Object
+  m_Name: Stun Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

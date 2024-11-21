@@ -19,17 +19,23 @@ public class StatusAbnormality : MonoBehaviour
     }
     [SerializeField] AbnormalityType type;
 
+    [SerializeField] bool statusFlag = false;
+
+
     // Stun
+    [Header("# Stun")]
     [SerializeField] float maxGague = 100f;
     [SerializeField] float currentGague = 20f;
     [SerializeField] float descentSpeed = 5f;
     [SerializeField] float increaseQuantity = 5f;
-    [SerializeField] bool statusFlag = false;
     [SerializeField] KeyType keyType;
     [SerializeField] bool successFlag = false;
 
     // Noise
+    [Header("# Noise")]
     [SerializeField] UniversalRendererData rendererData;
+    [SerializeField] float activationTime = 3.0f;
+    [SerializeField] GameObject globalVolume;
 
 
     private void Start()
@@ -42,10 +48,6 @@ public class StatusAbnormality : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y))
             statusFlag = true;
-
-
-        if(Input.GetKeyDown(KeyCode.L))
-            EndNoise();
 
         if (!statusFlag)
             return;
@@ -96,6 +98,8 @@ public class StatusAbnormality : MonoBehaviour
         }
     }
 
+
+    #region Stun Method
     void GetRightInput()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -123,18 +127,28 @@ public class StatusAbnormality : MonoBehaviour
         Debug.Log(currentGague);
     }
 
+    #endregion
+
+
+    #region Noise Method
     void Noise()
     {
         for (int i = 0; i < rendererData.rendererFeatures.Count; i++)
             rendererData.rendererFeatures[i].SetActive(true);
+
+        globalVolume.SetActive(true);
+        Invoke(nameof(EndNoise), activationTime);
     }
 
     void EndNoise()
     {
         for (int i = 0; i < rendererData.rendererFeatures.Count; i++)
             rendererData.rendererFeatures[i].SetActive(false);
-    }
 
+        globalVolume.SetActive(false);
+        statusFlag = false;
+    }
+    #endregion
     void Poison()
     {
 
