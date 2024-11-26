@@ -347,7 +347,9 @@ MonoBehaviour:
   activationTime: 3
   globalVolume: {fileID: 1500397857}
   glareSprite: {fileID: 2072994241}
-  glareDelay: 3
+  glareActivationTime: 2
+  glareStartDelay: 0.3
+  glareEndDelay: 3
 --- !u!4 &234651921
 Transform:
   m_ObjectHideFlags: 0
@@ -582,7 +584,9 @@ MonoBehaviour:
   activationTime: 3
   globalVolume: {fileID: 1500397857}
   glareSprite: {fileID: 0}
-  glareDelay: 3
+  glareActivationTime: 2
+  glareStartDelay: 0.3
+  glareEndDelay: 3
 --- !u!4 &614952319
 Transform:
   m_ObjectHideFlags: 0
@@ -1189,7 +1193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1756147151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1218,9 @@ MonoBehaviour:
   activationTime: 3
   globalVolume: {fileID: 0}
   glareSprite: {fileID: 0}
-  glareDelay: 3
+  glareActivationTime: 2
+  glareStartDelay: 0.3
+  glareEndDelay: 5
 --- !u!4 &1756147152
 Transform:
   m_ObjectHideFlags: 0
