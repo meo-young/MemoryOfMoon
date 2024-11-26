@@ -25,7 +25,8 @@ public class FirstCameraManager : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("Player");
 
-        target.GetComponent<PlayerController>().cameraAudioSource = this.GetComponent<AudioSource>();
+        if (target.GetComponent<PlayerController>() != null)
+            target.GetComponent<PlayerController>().cameraAudioSource = this.GetComponent<AudioSource>();
 
         theCamera = GetComponent<Camera>();
         minBound = currentBound.bounds.min;
