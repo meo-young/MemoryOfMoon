@@ -5,15 +5,15 @@ public class MainController : MonoBehaviour
     public static MainController instance;
 
     [Header("Movement")]
-    public float walkSpeed = 5f;                        
-    public float runSpeed = 8f;                
+    public float walkSpeed = 0.8f;                        
+    public float runSpeed = 1.8f;                
    
     public IControllerState CurrentState
     {
         get; private set;
     }
 
-    public IControllerState _idleState, _walkState;
+    public IControllerState _idleState, _walkState, _sprintState;
 
     [HideInInspector] public Vector2 movement;
     [HideInInspector] public Animator anim;
@@ -26,6 +26,7 @@ public class MainController : MonoBehaviour
 
         _idleState = gameObject.AddComponent<MainIdleState>();
         _walkState = gameObject.AddComponent<MainWalkState>();
+        _sprintState = gameObject.AddComponent<MainSprintState>();
 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();

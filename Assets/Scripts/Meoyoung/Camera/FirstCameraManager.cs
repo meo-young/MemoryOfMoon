@@ -6,6 +6,7 @@ public class FirstCameraManager : MonoBehaviour
 {
     static public FirstCameraManager instance;
 
+    [SerializeField] LayerMask layerMask;
     public GameObject target;
     public float moveSpeed;
     private Vector3 targetPosition;
@@ -46,7 +47,7 @@ public class FirstCameraManager : MonoBehaviour
 
     private void UpdateCurrentBound()
     {
-        Collider2D[] colliders = Physics2D.OverlapPointAll(target.transform.position);
+        Collider2D[] colliders = Physics2D.OverlapPointAll(target.transform.position, layerMask);
         foreach (var collider in colliders)
         {
             if (collider is BoxCollider2D && collider.CompareTag("Camera"))

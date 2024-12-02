@@ -15,8 +15,15 @@ public class MainWalkState : MonoBehaviour, IControllerState
 
     public void OnStateUpdate()
     {
-        mc.movement.x = Input.GetAxisRaw("Horizontal");
-        mc.movement.y = Input.GetAxisRaw("Vertical");
+        mc.movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        /*mc.movement.x = Input.GetAxisRaw("Horizontal");
+        mc.movement.y = Input.GetAxisRaw("Vertical");*/
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            mc.ChangeState(mc._sprintState);
+            return;
+        }
 
         if (mc.movement == Vector2.zero)
         {
