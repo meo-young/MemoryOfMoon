@@ -51,4 +51,10 @@ public class MainController : MonoBehaviour
         CurrentState = state;
         CurrentState.OnStateEnter(this);
     }
+
+    public Direction GetPlayerDirection()
+    {
+
+        return Direction.DOWN;
+    }
 }
