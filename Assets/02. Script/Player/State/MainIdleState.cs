@@ -12,16 +12,15 @@ public class MainIdleState : MonoBehaviour, IControllerState
 
     public void OnStateUpdate()
     {
-        mc.movement = new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
-        if (mc.movement != Vector2.zero)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
         {
             mc.ChangeState(mc._walkState);
         }
 
-/*        if (Input.GetKeyDown(KeyCode.E)) // 'E' 키로 상호작용
+        if (Input.GetKeyDown(KeyCode.E)) // 'E' 키로 상호작용
         {
             mc.Interact();
-        }*/
+        }
     }
 
     public void OnStateExit()

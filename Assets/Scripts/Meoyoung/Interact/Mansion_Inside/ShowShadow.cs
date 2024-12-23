@@ -16,7 +16,7 @@ public class ShowShadow : MonoBehaviour
     [SerializeField]
     private float walkSpeed = 30f;
     private PlayerInventory inventory;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
 
 
     public Direction direction; //사용자의 현재 방향
@@ -24,7 +24,7 @@ public class ShowShadow : MonoBehaviour
     {
         eventFlag = false;
         inventory = FindObjectOfType<PlayerInventory>();
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         shadow.SetActive(false);
     }
 

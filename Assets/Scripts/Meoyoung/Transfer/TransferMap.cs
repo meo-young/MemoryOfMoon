@@ -17,7 +17,7 @@ public class TransferMap : MonoBehaviour, IInteractable
     private GameObject player;
     private AudioSource audioSource; // AudioSource 컴포넌트
     private PlayerInventory playerInventory;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     private PlayerController _playerController;
     private Camera _camera;
     private ShowRegionName _showRegionName;
@@ -47,7 +47,7 @@ public class TransferMap : MonoBehaviour, IInteractable
     {
         _showRegionName = FindObjectOfType<ShowRegionName>();
         _camera = FindObjectOfType<Camera>();
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animator>();

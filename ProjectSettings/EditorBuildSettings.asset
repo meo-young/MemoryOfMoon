@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/01. Scene/01. Chapter/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Chapter1/MansionScene.unity
+    path: Assets/01. Scene/01. Chapter/MansionScene.unity
     guid: 8a165336365935647909fbd5a1abfc73
   - enabled: 1
     path: Assets/Scenes/Chapter1/ToBeContinue.unity

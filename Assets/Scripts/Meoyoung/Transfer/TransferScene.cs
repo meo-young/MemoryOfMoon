@@ -15,7 +15,7 @@ public class TransferScene : MonoBehaviour, IInteractable
     private Animator anim;
     private GameObject player;
     private PlayerInventory playerInventory;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     private PlayerController _playerController;
     private bool playerInRange = false; // 플레이어가 포탈 위에 있는지 여부
     private bool isMonologue = false;
@@ -34,7 +34,7 @@ public class TransferScene : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animator>();

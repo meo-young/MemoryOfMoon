@@ -11,7 +11,7 @@ public class LibraryKey : MonoBehaviour, IInteractable
     public Sprite image;
     private IllustManager _illustManager;
     private PlayerInventory playerInventory;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     private PlayerController _playerController;
     private InventoryManager inventoryManager;
 
@@ -22,7 +22,7 @@ public class LibraryKey : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         _illustManager = FindObjectOfType<IllustManager>();
         inventoryManager = FindObjectOfType<InventoryManager>();

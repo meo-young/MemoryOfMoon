@@ -21,7 +21,7 @@ public class KentaAnimation : MonoBehaviour, IInteractable
     private KentaController kentaController;
     [SerializeField]
     private PlayerController _playerController;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     public string objectID;
 
 
@@ -31,7 +31,7 @@ public class KentaAnimation : MonoBehaviour, IInteractable
     {
         kenta.SetActive(false);
         playerInventory = FindObjectOfType<PlayerInventory>();
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
 
     }
     public void Interact()

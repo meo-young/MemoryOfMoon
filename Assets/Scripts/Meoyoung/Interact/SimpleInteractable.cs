@@ -3,11 +3,11 @@
 public class SimpleInteractable : MonoBehaviour, IInteractable
 {
     public string objectID;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
 
     void Start()
     {
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
     }
     public void Interact()
     {

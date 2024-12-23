@@ -5,7 +5,7 @@ using UnityEngine;
 public class IllustManager : MonoBehaviour
 {
     private PlayerController _playerController;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     private SpriteRenderer spriteRenderer;
 
     public static IllustManager Instance { get; private set; } // Singleton 인스턴스
@@ -29,7 +29,7 @@ public class IllustManager : MonoBehaviour
     void Start()
     {
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         spriteRenderer = _playerController.illust.GetComponent<SpriteRenderer>();
     }
 

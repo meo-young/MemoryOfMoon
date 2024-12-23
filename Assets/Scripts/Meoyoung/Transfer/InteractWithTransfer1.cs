@@ -17,7 +17,7 @@ public class InteractWithTransfer2 : MonoBehaviour, IInteractable
     public FirstCameraManager _cameraManager;
     private AudioSource audioSource; // AudioSource 컴포넌트
     private PlayerInventory playerInventory;
-    private MonologueManager _monologueManager;
+    private MonologueManager2 _monologueManager;
     private PlayerController _playerController;
     private Camera _camera;
     private bool playerInRange = false; // 플레이어가 포탈 위에 있는지 여부
@@ -43,7 +43,7 @@ public class InteractWithTransfer2 : MonoBehaviour, IInteractable
     void Start()
     {
         _camera = FindObjectOfType<Camera>();
-        _monologueManager = FindObjectOfType<MonologueManager>();
+        _monologueManager = FindObjectOfType<MonologueManager2>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animator>();
