@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LayerSetting1 : MonoBehaviour
+public class LayerSetting : MonoBehaviour
 {
     private SpriteRenderer targetRenderer;
     private SpriteRenderer playerRenderer;
@@ -16,9 +16,9 @@ public class LayerSetting1 : MonoBehaviour
             return;
 
         if (MainController.instance.movement.y < 0)
-            targetRenderer.sortingOrder = targetRenderer.sortingOrder - 3;
+            targetRenderer.sortingOrder = playerRenderer.sortingOrder - 3;
         else if (MainController.instance.movement.y > 0)
-            targetRenderer.sortingOrder = targetRenderer.sortingOrder + 3;
+            targetRenderer.sortingOrder = playerRenderer.sortingOrder + 3;
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -27,9 +27,9 @@ public class LayerSetting1 : MonoBehaviour
             return;
 
         if (MainController.instance.movement.y < 0)
-            targetRenderer.sortingOrder = targetRenderer.sortingOrder - 3;
+            targetRenderer.sortingOrder = playerRenderer.sortingOrder - 3;
         else if (MainController.instance.movement.y > 0)
-            targetRenderer.sortingOrder = targetRenderer.sortingOrder + 3;
+            targetRenderer.sortingOrder = playerRenderer.sortingOrder + 3;
 
     }
 }
