@@ -33,7 +33,6 @@ public class LoadMonologueDatatable : MonoBehaviour
 
             string[] values = line.Split('\t');
             monologues.Add(values[0], values[1]);
-            Debug.Log(monologues[values[0]]);
         }
     }
 }

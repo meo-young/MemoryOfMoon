@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,18 +9,18 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
         
-    [SerializeField] Sprites[] characterSpriteInfo;                         // Ä³¸¯ÅÍº° Ç¥Á¤ µ¥ÀÌÅÍ
+    [SerializeField] Sprites[] characterSpriteInfo;                         // ìºë¦­í„°ë³„ í‘œì • ë°ì´í„°
 
-    private List<DialogueInfo> dialogueInfo => loadDialogue.dialogueInfo;   // Ä³¸¯ÅÍÀÌ¸§, ´ë»ç, ½ºÇÁ¶óÀÌÆ®¸¦ °¡Áø º¯¼ö
-    private LoadDialogueDatatable loadDialogue;                             // ´ë»ç¸¦ ºÒ·¯¿À±âÀ§ÇÑ ÂüÁ¶
-    private TMP_Text nameText;                                              // Ä³¸¯ÅÍÀÌ¸§ ÆĞ³Î
-    private TMP_Text dialogueText;                                          // ´ë»ç ÆĞ³Î
-    private Image characterSprite;                                          // ½ºÇÁ¶óÀÌÆ® ÆĞ³Î
-    private GameObject arrow;                                               // È­»ìÇ¥ ¾ÆÀÌÄÜ
-    private int currentDialogueCounter;                                     // ÇöÀç ´ë»ç Ä«¿îÆ®
-    private WaitForSeconds typingTime = new WaitForSeconds(0.05f);          // ¸Ş¸ğ¸® ´©¼ö ¹æÁö¸¦ À§ÇÑ »çÀü ¼±¾ğ
-    private Coroutine currentCoroutine;                                     // ¹İº¹ È£Ãâ·Î ÀÎÇÑ ¸Ş¸ğ¸® ´©¼ö ¹æÁö
-    private bool isFinish;                                                  // E Å° ÀÔ·Â¹Ş±âÀ§ÇÑ º¯¼ö
+    private List<DialogueInfo> dialogueInfo => loadDialogue.dialogueInfo;   // ìºë¦­í„°ì´ë¦„, ëŒ€ì‚¬, ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ê°€ì§„ ë³€ìˆ˜
+    private LoadDialogueDatatable loadDialogue;                             // ëŒ€ì‚¬ë¥¼ ë¶ˆëŸ¬ì˜¤ê¸°ìœ„í•œ ì°¸ì¡°
+    private TMP_Text nameText;                                              // ìºë¦­í„°ì´ë¦„ íŒ¨ë„
+    private TMP_Text dialogueText;                                          // ëŒ€ì‚¬ íŒ¨ë„
+    private Image characterSprite;                                          // ìŠ¤í”„ë¼ì´íŠ¸ íŒ¨ë„
+    private GameObject arrow;                                               // í™”ì‚´í‘œ ì•„ì´ì½˜
+    private int currentDialogueCounter;                                     // í˜„ì¬ ëŒ€ì‚¬ ì¹´ìš´íŠ¸
+    private WaitForSeconds typingTime = new WaitForSeconds(0.05f);          // ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ë°©ì§€ë¥¼ ìœ„í•œ ì‚¬ì „ ì„ ì–¸
+    private Coroutine currentCoroutine;                                     // ë°˜ë³µ í˜¸ì¶œë¡œ ì¸í•œ ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ë°©ì§€
+    private bool isFinish;                                                  // E í‚¤ ì…ë ¥ë°›ê¸°ìœ„í•œ ë³€ìˆ˜
 
     private void Awake()
     {
@@ -29,20 +29,18 @@ public class DialogueManager : MonoBehaviour
 
         loadDialogue = GetComponent<LoadDialogueDatatable>();
 
-        // ÂüÁ¶ ÇÒ´ç
+        // ì°¸ì¡° í• ë‹¹
         characterSprite = GetComponentsInChildren<Image>()[2];
         arrow = GetComponentsInChildren<Image>()[3].gameObject;
         TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
         nameText = texts[0];
         dialogueText = texts[1];
 
-        // Ä³¸¯ÅÍ ÀÌ¹ÌÁö ÆĞ³Î ÂüÁ¶
-
-        // º¯¼ö ÃÊ±âÈ­
+        // ë³€ìˆ˜ ì´ˆê¸°í™”
         currentDialogueCounter = 0;
         isFinish = false;
 
-        // ¿ÀºêÁ§Æ®°¡ ÄÑÁ®ÀÖ´Ù¸é ºñÈ°¼ºÈ­
+        // ì˜¤ë¸Œì íŠ¸ê°€ ì¼œì ¸ìˆë‹¤ë©´ ë¹„í™œì„±í™”
         if(this.gameObject.activeSelf)
             this.gameObject.SetActive(false);
     }
@@ -54,7 +52,7 @@ public class DialogueManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (dialogueInfo[currentDialogueCounter].nextIndex == -1)
+            if (dialogueInfo[currentDialogueCounter-1].nextIndex == -1)
                 this.gameObject.SetActive(false);
             else
                 ShowDialogue();
@@ -86,11 +84,11 @@ public class DialogueManager : MonoBehaviour
 
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
         nameText.text = dialogueInfo[currentDialogueCounter].characterName; 
-        dialogueText.text = ""; // ÅØ½ºÆ® ÃÊ±âÈ­
+        dialogueText.text = ""; // í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         
         //PlaySound(SoundType.Default);
 
-        for (int i = 0; i < dialogue.Length; i++) //´ë»ç ³ª¿À´Â µµÁß Space¹Ù¸¦ ´©¸£¸é ´ë»ç ½ºÅµ
+        for (int i = 0; i < dialogue.Length; i++) //ëŒ€ì‚¬ ë‚˜ì˜¤ëŠ” ë„ì¤‘ Spaceë°”ë¥¼ ëˆ„ë¥´ë©´ ëŒ€ì‚¬ ìŠ¤í‚µ
         {
             if (Input.GetKey(KeyCode.Space))
             {
