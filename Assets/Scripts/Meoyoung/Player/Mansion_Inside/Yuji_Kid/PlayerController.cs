@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isDialogue = false; //플레이어가 대화중임을 나타내는 변수
     [HideInInspector]
-    public DialogueManager _dialogueManager;
+    public DialogueManager2 _dialogueManager;
     [HideInInspector]
     public Rigidbody2D _rigidbody;
     [HideInInspector]
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         dialoguePanel.SetActive(false);
         DirectionUtils.Initialize(this); // 플레이어 Direction 체크하는 함수 초기화
 
-        _dialogueManager = FindObjectOfType<DialogueManager>();
+        _dialogueManager = FindObjectOfType<DialogueManager2>();
 
         _waitState = gameObject.AddComponent<PlayerWaitState>();
         _idleState = gameObject.AddComponent<PlayerIdleState>();

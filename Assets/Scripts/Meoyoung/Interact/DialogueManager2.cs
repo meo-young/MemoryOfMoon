@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager2 : MonoBehaviour
 {
     public PlayerController _playerController;
     public GameObject arrow;
@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private AudioClip skipSound;
     [SerializeField] private float fadeDuration = 0.1f; // 페이드 아웃 시간
 
-    public static DialogueManager Instance { get; private set; } // Singleton 인스턴스
+    public static DialogueManager2 Instance { get; private set; } // Singleton 인스턴스
 
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f);
 
