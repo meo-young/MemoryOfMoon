@@ -9,7 +9,7 @@ public class LoadDialogueDatatable : MonoBehaviour
     [HideInInspector] public List<DialogueInfo> dialogueInfo;
     private void Awake()
     {
-        dialogueInfo = new List<DialogueInfo>();
+        dialogueInfo = new List<DialogueInfo>(200);
         UpdateDialogueDatatable();
     }
 
@@ -34,13 +34,13 @@ public class LoadDialogueDatatable : MonoBehaviour
             // values[2] => Sprite Type
             // values[3] => Dialogue Text
 
-            DialogueInfo dialogue = new DialogueInfo(values[0],(int)(SpriteType)Enum.Parse(typeof(SpriteType), values[1]), values[2]);
+            DialogueInfo dialogue = new DialogueInfo(values[1],(int)(SpriteType)Enum.Parse(typeof(SpriteType), values[2]), values[3], int.Parse(values[4]));
             dialogueInfo.Add(dialogue);
         }
     }
 
 
-    enum CharacterType
+    public enum CharacterType
     {
         ¿¢½ºÆ®¶ó1 = 0,
         ¿¢½ºÆ®¶ó2 = 1,
@@ -69,11 +69,13 @@ public class DialogueInfo
     public string characterName;
     public int spriteType;
     public string text;
+    public int nextIndex;
 
-    public DialogueInfo(string characterName, int spriteType, string text)
+    public DialogueInfo(string characterName, int spriteType, string text, int nextIndex)
     {
         this.characterName = characterName;
         this.spriteType = spriteType;
         this.text = text;
+        this.nextIndex = nextIndex;
     }
 }
