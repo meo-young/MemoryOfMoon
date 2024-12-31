@@ -1,30 +1,29 @@
-using System;
+﻿using System;
 using UnityEngine;
 
-public class Monologue : MonoBehaviour, IInteraction
+public class Door : MonoBehaviour, IInteraction
 {
     private GameObject arrow;
 
+    private void Awake()
+    {
+        arrow = transform.GetChild(0).gameObject;
+
+        if(arrow.activeSelf)
+            arrow.SetActive(false);
+    }
     public void Interact(Action action)
     {
-        MonologueManager.instance.ShowMonologue(this.gameObject.name, action);
+
     }
 
     public void CanInteraction()
     {
-        if (arrow == null)
-            return;
-
         arrow.SetActive(true);
     }
 
     public void StopInteraction()
     {
-        if (arrow == null)
-            return;
-
         arrow.SetActive(false);
     }
-
-
 }

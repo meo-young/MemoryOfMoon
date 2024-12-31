@@ -40,21 +40,6 @@ public class LoadDialogueDatatable : MonoBehaviour
     }
 
 
-    public enum CharacterType
-    {
-        엑스트라1 = 0,
-        엑스트라2 = 1,
-        엑스트라3 = 2,
-        츠네모리유우지 = 3,
-        스즈키토우마 = 4,
-        후케토우지 = 5,
-        후지다나카 = 6,
-        코즈키료고 = 7,
-        기노자사이고 = 8,
-        토마코자부로 = 9
-
-    }
-
     enum SpriteType
     {
         Default = 0,

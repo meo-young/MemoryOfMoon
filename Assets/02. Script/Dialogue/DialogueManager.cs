@@ -11,34 +11,41 @@ public class DialogueManager : MonoBehaviour
         
     [SerializeField] Sprites[] characterSpriteInfo;                         // 캐릭터별 표정 데이터
 
-    private List<DialogueInfo> dialogueInfo => loadDialogue.dialogueInfo;   // 캐릭터이름, 대사, 스프라이트를 가진 변수
     private LoadDialogueDatatable loadDialogue;                             // 대사를 불러오기위한 참조
     private TMP_Text nameText;                                              // 캐릭터이름 패널
     private TMP_Text dialogueText;                                          // 대사 패널
     private Image characterSprite;                                          // 스프라이트 패널
     private GameObject arrow;                                               // 화살표 아이콘
-    private int currentDialogueCounter;                                     // 현재 대사 카운트
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f);          // 메모리 누수 방지를 위한 사전 선언
     private Coroutine currentCoroutine;                                     // 반복 호출로 인한 메모리 누수 방지
     private bool isFinish;                                                  // E 키 입력받기위한 변수
+    private int currentDialogueCounter;                                     // 현재 대사 카운트
+
+
+    private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
+    private string characterName => loadDialogue.dialogueInfo[currentDialogueCounter].characterName;
+    private string dialogue => loadDialogue.dialogueInfo[currentDialogueCounter].text;
+    private int nextIndex => loadDialogue.dialogueInfo[currentDialogueCounter-1].nextIndex;
 
     private void Awake()
     {
         if (instance == null)
             instance = this;
 
-        loadDialogue = GetComponent<LoadDialogueDatatable>();
-
-        // 참조 할당
-        characterSprite = GetComponentsInChildren<Image>()[2];
-        arrow = GetComponentsInChildren<Image>()[3].gameObject;
-        TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
-        nameText = texts[0];
-        dialogueText = texts[1];
-
         // 변수 초기화
         currentDialogueCounter = 0;
         isFinish = false;
+
+        TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
+        Image[] images = GetComponentsInChildren<Image>();
+
+        loadDialogue = GetComponent<LoadDialogueDatatable>();
+
+        characterSprite = images[2];
+        arrow = images[3].gameObject;
+        nameText = texts[0];
+        dialogueText = texts[1];
+
 
         // 오브젝트가 켜져있다면 비활성화
         if(this.gameObject.activeSelf)
@@ -52,7 +59,7 @@ public class DialogueManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (dialogueInfo[currentDialogueCounter-1].nextIndex == -1)
+            if (nextIndex == -1)
                 this.gameObject.SetActive(false);
             else
                 ShowDialogue();
@@ -68,7 +75,6 @@ public class DialogueManager : MonoBehaviour
             StopCoroutine(currentCoroutine);
 
         currentCoroutine = StartCoroutine(ActiveDialogue());
-        currentDialogueCounter++;
     }
 
 
@@ -78,13 +84,11 @@ public class DialogueManager : MonoBehaviour
 
         isFinish = false;
 
-        int characterType = (int)(LoadDialogueDatatable.CharacterType)Enum.Parse(typeof(LoadDialogueDatatable.CharacterType), dialogueInfo[currentDialogueCounter].characterName.Replace(" ", ""));
-        int spriteType = dialogueInfo[currentDialogueCounter].spriteType;
-        string dialogue = dialogueInfo[currentDialogueCounter].text;
+        int characterType = (int)(CharacterType)Enum.Parse(typeof(CharacterType), characterName.Replace(" ", ""));
 
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
-        nameText.text = dialogueInfo[currentDialogueCounter].characterName; 
-        dialogueText.text = ""; // 텍스트 초기화
+        nameText.text = characterName; 
+        dialogueText.text = "";
         
         //PlaySound(SoundType.Default);
 
@@ -102,15 +106,31 @@ public class DialogueManager : MonoBehaviour
         }
 
         isFinish = true;
-
-
         //_audioSource.Stop();
         arrow.SetActive(true);
+
+        // 대화의 한 사이클이 끝나면 Counter 증가
+        currentDialogueCounter++;
     }
 
     [System.Serializable]
     public class Sprites
     {
         public Sprite[] sprites;
+    }
+
+    public enum CharacterType
+    {
+        엑스트라1 = 0,
+        엑스트라2 = 1,
+        엑스트라3 = 2,
+        츠네모리유우지 = 3,
+        스즈키토우마 = 4,
+        후케토우지 = 5,
+        후지다나카 = 6,
+        코즈키료고 = 7,
+        기노자사이고 = 8,
+        토마코자부로 = 9
+
     }
 }

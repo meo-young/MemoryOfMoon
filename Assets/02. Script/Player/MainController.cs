@@ -6,12 +6,12 @@ public class MainController : MonoBehaviour
     public static MainController instance;
 
     [Header("# Movement")]
-    public float walkSpeed = 0.8f;                        
+    public float walkSpeed = 0.8f;
     public float runSpeed = 1.8f;
 
     [Header("# Interact")]
     [SerializeField] LayerMask layerMask;
-   
+
     public IControllerState CurrentState
     {
         get; private set;
@@ -29,10 +29,12 @@ public class MainController : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
 
     private BoxCollider2D boxCollider2D;
+    private RaycastHit2D hit;
+    private IInteraction lastInteractedObject;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
 
         _idleState = gameObject.AddComponent<MainIdleState>();
@@ -52,6 +54,7 @@ public class MainController : MonoBehaviour
     {
         UpdateState();
         CurrentDirection = new(anim.GetFloat("DirX"), anim.GetFloat("DirY"));
+        CheckInteraction();
     }
 
     public void UpdateState()
@@ -68,17 +71,43 @@ public class MainController : MonoBehaviour
 
     public void Interact()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, CurrentDirection, 0.1f, layerMask);
+        if (hit.collider == null)
+            return;
 
-        if(hit.collider != null)
+        IInteraction interactable = hit.collider.GetComponent<IInteraction>();
+        if (interactable != null)
+            ChangeState(_waitState);
+        interactable.Interact(() =>
         {
-            IInteraction interactable = hit.collider.GetComponent<IInteraction>();
-            if (interactable != null)
-                ChangeState(_waitState);
-                interactable.Interact(() =>
-                {
-                    ChangeState(_idleState);
-                });
+            ChangeState(_idleState);
+        });
+
+    }
+
+    void CheckInteraction()
+    {
+        hit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, CurrentDirection, 0.1f, layerMask);
+
+        if (hit.collider == null)
+        {
+            if (lastInteractedObject != null)
+            {
+                lastInteractedObject.StopInteraction();
+                lastInteractedObject = null;
+            }
+
+            return;
+        }
+
+        IInteraction currentInteraction = hit.collider.GetComponent<IInteraction>();
+        if (currentInteraction != lastInteractedObject)
+        {
+            if (lastInteractedObject != null)
+                lastInteractedObject.StopInteraction();
+
+            currentInteraction.CanInteraction();
+
+            lastInteractedObject = currentInteraction;
         }
     }
 }
