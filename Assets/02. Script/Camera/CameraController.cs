@@ -4,8 +4,6 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] LayerMask layerMask;
 
-
-
     private Camera theCamera;
     private GameObject target;
     private Vector3 targetPosition;
@@ -34,6 +32,9 @@ public class CameraController : MonoBehaviour
     private void UpdateCurrentBound()
     {
         Collider2D collider = Physics2D.OverlapPoint(target.transform.position, layerMask);
+
+        if (collider as BoxCollider2D == currentBound)
+            return;
 
         if (collider != null)
         {
