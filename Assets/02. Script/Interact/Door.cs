@@ -14,7 +14,7 @@ public class Door : MonoBehaviour, IInteraction
     }
     public void Interact(Action action)
     {
-
+        
     }
 
     public void CanInteraction()
