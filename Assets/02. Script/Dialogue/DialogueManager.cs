@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
 
-    public CallbackEvent[] uEvent;
+    public UnityEvent[] uEvent;
         
     [SerializeField] Sprites[] characterSpriteInfo;                         // 캐릭터별 표정 데이터
 
@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     private bool isFinish;                                                  // E 키 입력받기위한 변수
     private int currentDialogueCounter;                                     // 현재 대사 카운트
     private int eventCounter;                                               // 챕터 이벤트 카운트
+
+    public bool eventFlag;
 
 
     private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
@@ -45,6 +47,7 @@ public class DialogueManager : MonoBehaviour
         currentDialogueCounter = 0;
         eventCounter = 0;
         isFinish = false;
+        eventFlag = false;
 
         TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
         Image[] images = GetComponentsInChildren<Image>();
@@ -86,7 +89,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue()
     {
-        if(!this.gameObject.activeSelf)
+        if (!this.gameObject.activeSelf)
             this.gameObject.SetActive(true);
 
         if(currentCoroutine != null)
@@ -101,9 +104,16 @@ public class DialogueManager : MonoBehaviour
         arrow.SetActive(false);
         isFinish = false;
 
-        if(transitionType == 0 || transitionType == 2)
+        if (transitionType == 0 || transitionType == 2)
         {
-            StartCoroutine(EventHandler());
+            this.gameObject.transform.localScale = Vector3.zero;
+
+            uEvent[eventCounter]?.Invoke();
+            ++eventCounter;
+            yield return new WaitUntil(() => eventFlag);
+
+            eventFlag = false;
+            this.gameObject.transform.localScale = Vector3.one;
         }
 
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
@@ -133,17 +143,12 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator EventHandler()
     {
-        bool eventFinished = false;
-
-        uEvent[eventCounter]?.Invoke(() =>
-        {
-            eventFinished = true; // UnityEvent 완료 시 플래그 변경
-        });
+        uEvent[eventCounter]?.Invoke();
 
         ++eventCounter;
 
         // UnityEvent가 완료될 때까지 대기
-        yield return new WaitUntil(() => eventFinished);
+        yield return new WaitUntil(() => eventFlag);
     }
 
     [System.Serializable]

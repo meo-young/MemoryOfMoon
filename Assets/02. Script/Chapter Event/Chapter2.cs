@@ -12,14 +12,26 @@ public class Chapter2 : MonoBehaviour
     private void Awake()
     {
         eyeCatch.stopped += OnTimelineStopped;
+        doorOpen.stopped += OnTimelineStopped;
     }
 
     private void OnTimelineStopped(PlayableDirector timeline)
     {
-        if(this.eyeCatch == timeline)
+        if (this.eyeCatch == timeline)
         {
-            Invoke(nameof(NextDialogue), 1.0f);
+            Invoke(nameof(NextDialogue), 0.0f);
         }
+        else if (this.doorOpen == timeline)
+        {
+            //Invoke(nameof(NextDialogue), 0.5f);
+            DialogueManager.instance.eventFlag = true;
+
+        }
+    }
+
+    public void PlayDoorTimeLine()
+    {
+        doorOpen.Play();
     }
 
     private void NextDialogue()
