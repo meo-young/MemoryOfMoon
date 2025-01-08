@@ -6,11 +6,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class CallbackEvent : UnityEvent<UnityAction> { }
+
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
 
-    public UnityEvent[] uEvent;
+    public CallbackEvent[] uEvent;
         
     [SerializeField] Sprites[] characterSpriteInfo;                         // 캐릭터별 표정 데이터
 
@@ -66,16 +69,16 @@ public class DialogueManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
+            isFinish = false;
+
             if (transitionType == 1 || transitionType == 2)
             {
-                Debug.Log("After");
+                StartCoroutine(EventHandler());
             }
 
             if (nextIndex == -1)
-            {
-                isFinish = false;
+     
                 this.gameObject.SetActive(false);
-            }
             else
                 ShowDialogue();
         }
@@ -100,8 +103,7 @@ public class DialogueManager : MonoBehaviour
 
         if(transitionType == 0 || transitionType == 2)
         {
-            uEvent[eventCounter]?.Invoke();
-            ++eventCounter;
+            StartCoroutine(EventHandler());
         }
 
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
@@ -127,6 +129,21 @@ public class DialogueManager : MonoBehaviour
         //_audioSource.Stop();
         arrow.SetActive(true);
         currentDialogueCounter++;
+    }
+
+    IEnumerator EventHandler()
+    {
+        bool eventFinished = false;
+
+        uEvent[eventCounter]?.Invoke(() =>
+        {
+            eventFinished = true; // UnityEvent 완료 시 플래그 변경
+        });
+
+        ++eventCounter;
+
+        // UnityEvent가 완료될 때까지 대기
+        yield return new WaitUntil(() => eventFinished);
     }
 
     [System.Serializable]
