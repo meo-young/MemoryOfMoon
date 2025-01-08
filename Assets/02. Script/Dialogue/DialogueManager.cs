@@ -6,9 +6,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class CallbackEvent : UnityEvent<UnityAction> { }
-
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
@@ -28,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueCounter;                                     // 현재 대사 카운트
     private int eventCounter;                                               // 챕터 이벤트 카운트
 
-    public bool eventFlag;
+    [HideInInspector] public bool eventFlag;
 
 
     private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
@@ -74,14 +71,12 @@ public class DialogueManager : MonoBehaviour
         {
             isFinish = false;
 
-            if (transitionType == 1 || transitionType == 2)
-            {
-                StartCoroutine(EventHandler());
-            }
-
             if (nextIndex == -1)
-     
+            {
+                // 플레이어 움직일 수 있게 해야함
+                MainController.instance.ChangeState(MainController.instance._idleState);
                 this.gameObject.SetActive(false);
+            }
             else
                 ShowDialogue();
         }
@@ -89,6 +84,8 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue()
     {
+        MainController.instance.ChangeState(MainController.instance._waitState);
+
         if (!this.gameObject.activeSelf)
             this.gameObject.SetActive(true);
 
@@ -104,6 +101,7 @@ public class DialogueManager : MonoBehaviour
         arrow.SetActive(false);
         isFinish = false;
 
+        // Transition Type이 Before, Both인 경우 이벤트동안 대기
         if (transitionType == 0 || transitionType == 2)
         {
             this.gameObject.transform.localScale = Vector3.zero;
@@ -139,16 +137,6 @@ public class DialogueManager : MonoBehaviour
         //_audioSource.Stop();
         arrow.SetActive(true);
         currentDialogueCounter++;
-    }
-
-    IEnumerator EventHandler()
-    {
-        uEvent[eventCounter]?.Invoke();
-
-        ++eventCounter;
-
-        // UnityEvent가 완료될 때까지 대기
-        yield return new WaitUntil(() => eventFlag);
     }
 
     [System.Serializable]
