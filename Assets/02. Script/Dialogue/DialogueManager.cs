@@ -71,6 +71,12 @@ public class DialogueManager : MonoBehaviour
         {
             isFinish = false;
 
+            if(transitionType == 1 || transitionType == 2)
+            {
+                StartCoroutine(ChapterEventCoroutine());
+                return;
+            }
+
             if (nextIndex == -1)
             {
                 // 플레이어 움직일 수 있게 해야함
@@ -137,6 +143,19 @@ public class DialogueManager : MonoBehaviour
         //_audioSource.Stop();
         arrow.SetActive(true);
         currentDialogueCounter++;
+    }
+
+    IEnumerator ChapterEventCoroutine()
+    {
+        this.gameObject.transform.localScale = Vector3.zero;
+
+        uEvent[eventCounter]?.Invoke();
+        ++eventCounter;
+        yield return new WaitUntil(() => eventFlag);
+
+        eventFlag = false;
+        MainController.instance.ChangeState(MainController.instance._idleState);
+        this.gameObject.SetActive(false);
     }
 
     [System.Serializable]
