@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+
+    public UnityEvent[] uEvent;
         
     [SerializeField] Sprites[] characterSpriteInfo;                         // 캐릭터별 표정 데이터
 
@@ -20,12 +23,15 @@ public class DialogueManager : MonoBehaviour
     private Coroutine currentCoroutine;                                     // 반복 호출로 인한 메모리 누수 방지
     private bool isFinish;                                                  // E 키 입력받기위한 변수
     private int currentDialogueCounter;                                     // 현재 대사 카운트
+    private int eventCounter;                                               // 챕터 이벤트 카운트
 
 
     private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
     private string characterName => loadDialogue.dialogueInfo[currentDialogueCounter].characterName;
     private string dialogue => loadDialogue.dialogueInfo[currentDialogueCounter].text;
     private int nextIndex => loadDialogue.dialogueInfo[currentDialogueCounter-1].nextIndex;
+    private int characterType => loadDialogue.dialogueInfo[currentDialogueCounter].characterType;
+    private int transitionType => loadDialogue.dialogueInfo[currentDialogueCounter].transitionType;
 
     private void Awake()
     {
@@ -34,6 +40,7 @@ public class DialogueManager : MonoBehaviour
 
         // 변수 초기화
         currentDialogueCounter = 0;
+        eventCounter = 0;
         isFinish = false;
 
         TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
@@ -59,8 +66,16 @@ public class DialogueManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
+            if (transitionType == 1 || transitionType == 2)
+            {
+                Debug.Log("After");
+            }
+
             if (nextIndex == -1)
+            {
+                isFinish = false;
                 this.gameObject.SetActive(false);
+            }
             else
                 ShowDialogue();
         }
@@ -81,10 +96,13 @@ public class DialogueManager : MonoBehaviour
     IEnumerator ActiveDialogue()
     {
         arrow.SetActive(false);
-
         isFinish = false;
 
-        int characterType = (int)(CharacterType)Enum.Parse(typeof(CharacterType), characterName.Replace(" ", ""));
+        if(transitionType == 0 || transitionType == 2)
+        {
+            uEvent[eventCounter]?.Invoke();
+            ++eventCounter;
+        }
 
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
         nameText.text = characterName; 
@@ -108,8 +126,6 @@ public class DialogueManager : MonoBehaviour
         isFinish = true;
         //_audioSource.Stop();
         arrow.SetActive(true);
-
-        // 대화의 한 사이클이 끝나면 Counter 증가
         currentDialogueCounter++;
     }
 
@@ -117,20 +133,5 @@ public class DialogueManager : MonoBehaviour
     public class Sprites
     {
         public Sprite[] sprites;
-    }
-
-    public enum CharacterType
-    {
-        엑스트라1 = 0,
-        엑스트라2 = 1,
-        엑스트라3 = 2,
-        츠네모리유우지 = 3,
-        스즈키토우마 = 4,
-        후케토우지 = 5,
-        후지다나카 = 6,
-        코즈키료고 = 7,
-        기노자사이고 = 8,
-        토마코자부로 = 9
-
     }
 }
