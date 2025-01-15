@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/*.meta": true,
+        "**/*.prefab": true,
+        "Library/": true,
+        "Logs/": true,
+        "obj/": true,
+        "Packages/": true,
+        "ProjectSettings/": true,
+        "Temp/": true,
+        "UserSettings/": true
+    }
+}

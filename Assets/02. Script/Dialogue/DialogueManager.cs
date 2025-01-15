@@ -25,7 +25,10 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueCounter;                                     // 현재 대사 카운트
     private int eventCounter;                                               // 챕터 이벤트 카운트
 
-    [HideInInspector] public bool eventFlag;
+    private event Action OnDialogueStarted;                                 // 대사 시작 이벤트
+    private event Action OnDialogueEnded;                                   // 대사 종료 이벤트
+
+    [HideInInspector] public bool isTransition;                             // 트랜지션 여부
 
 
     private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
@@ -35,16 +38,24 @@ public class DialogueManager : MonoBehaviour
     private int characterType => loadDialogue.dialogueInfo[currentDialogueCounter].characterType;
     private int transitionType => loadDialogue.dialogueInfo[currentDialogueCounter].transitionType;
 
+    #region 초기화
     private void Awake()
     {
         if (instance == null)
             instance = this;
 
+        
+        Initalize();
+        OnDialogueStarted += HandleDialogueStart;
+        OnDialogueEnded += HandleDialogueEnd;
+    }
+
+    private void Initalize()
+    {
         // 변수 초기화
         currentDialogueCounter = 0;
         eventCounter = 0;
         isFinish = false;
-        eventFlag = false;
 
         TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
         Image[] images = GetComponentsInChildren<Image>();
@@ -56,11 +67,54 @@ public class DialogueManager : MonoBehaviour
         nameText = texts[0];
         dialogueText = texts[1];
 
-
-        // 오브젝트가 켜져있다면 비활성화
-        if(this.gameObject.activeSelf)
-            this.gameObject.SetActive(false);
+        // 대화창 스케일 0으로 설정
+        this.gameObject.transform.localScale = Vector3.zero;
     }
+    #endregion
+    
+    #region 콜백함수 이벤트
+    private void HandleDialogueStart()
+    {
+        // 화살표 비활성화
+        arrow.SetActive(false);
+        isFinish = false;
+
+        // 대화 창 초기화
+        this.gameObject.transform.localScale = Vector3.one;
+        characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
+        nameText.text = characterName; 
+        dialogueText.text = "";
+
+        // Transition Type이 Before
+        if (transitionType == 0)
+        {
+            StartCoroutine(TransitionEvent());
+        }
+    }
+
+    private void HandleDialogueEnd()
+    {
+        // 화살표 활성화
+        isFinish = true;
+        arrow.SetActive(true);
+        currentDialogueCounter++;
+    }
+
+    IEnumerator TransitionEvent()
+    {
+        this.gameObject.transform.localScale = Vector3.zero;
+        Debug.Log("StartTransitionEvent");
+
+        isTransition = false;
+        uEvent[eventCounter++]?.Invoke();
+        yield return new WaitUntil(() => isTransition == true);
+        isTransition = false;
+        Debug.Log("EndTransitionEvent");
+        this.gameObject.transform.localScale = Vector3.one;
+    }
+    #endregion
+
+
 
     private void Update()
     {
@@ -71,17 +125,17 @@ public class DialogueManager : MonoBehaviour
         {
             isFinish = false;
 
-            if(transitionType == 1 || transitionType == 2)
+            if(transitionType == 1)
             {
-                StartCoroutine(ChapterEventCoroutine());
-                return;
+                StartCoroutine(TransitionEvent());
             }
 
             if (nextIndex == -1)
             {
                 // 플레이어 움직일 수 있게 해야함
                 MainController.instance.ChangeState(MainController.instance._idleState);
-                this.gameObject.SetActive(false);
+                // 대화창 스케일 0
+                this.gameObject.transform.localScale = Vector3.zero;
             }
             else
                 ShowDialogue();
@@ -92,9 +146,6 @@ public class DialogueManager : MonoBehaviour
     {
         MainController.instance.ChangeState(MainController.instance._waitState);
 
-        if (!this.gameObject.activeSelf)
-            this.gameObject.SetActive(true);
-
         if(currentCoroutine != null)
             StopCoroutine(currentCoroutine);
 
@@ -104,59 +155,25 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator ActiveDialogue()
     {
-        arrow.SetActive(false);
-        isFinish = false;
-
-        // Transition Type이 Before, Both인 경우 이벤트동안 대기
-        if (transitionType == 0 || transitionType == 2)
-        {
-            this.gameObject.transform.localScale = Vector3.zero;
-
-            uEvent[eventCounter]?.Invoke();
-            ++eventCounter;
-            yield return new WaitUntil(() => eventFlag);
-
-            eventFlag = false;
-            this.gameObject.transform.localScale = Vector3.one;
-        }
-
-        characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
-        nameText.text = characterName; 
-        dialogueText.text = "";
+        // 대사 시작 이벤트 호출
+        OnDialogueStarted?.Invoke();
         
-        //PlaySound(SoundType.Default);
-
-        for (int i = 0; i < dialogue.Length; i++) //대사 나오는 도중 Space바를 누르면 대사 스킵
+        //대사 나오는 도중 Space바를 누르면 대사 스킵
+        for (int i = 0; i < dialogue.Length; i++) 
         {
             if (Input.GetKey(KeyCode.Space))
             {
                 dialogueText.text = dialogue;
-                //PlaySound(SoundType.SKIP);
                 break;
             }
             dialogueText.text += dialogue[i];
             yield return typingTime;
-
         }
 
-        isFinish = true;
-        //_audioSource.Stop();
-        arrow.SetActive(true);
-        currentDialogueCounter++;
+        // 대사 종료 이벤트 호출
+        OnDialogueEnded?.Invoke();
     }
 
-    IEnumerator ChapterEventCoroutine()
-    {
-        this.gameObject.transform.localScale = Vector3.zero;
-
-        uEvent[eventCounter]?.Invoke();
-        ++eventCounter;
-        yield return new WaitUntil(() => eventFlag);
-
-        eventFlag = false;
-        MainController.instance.ChangeState(MainController.instance._idleState);
-        this.gameObject.SetActive(false);
-    }
 
     [System.Serializable]
     public class Sprites
