@@ -24,6 +24,10 @@ public class Chapter2 : MonoBehaviour
     [Header("# ID : 15 우유 던지기")]
     [SerializeField] PlayableDirector milkThrow;
 
+    public void PlayMilkTimeLine()
+    {
+        StartCoroutine(TimeLineCoroutine(milkThrow));
+    }
 
 
 
