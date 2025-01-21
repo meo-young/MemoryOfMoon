@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject arrow;                                               // 화살표 아이콘
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f);          // 메모리 누수 방지를 위한 사전 선언
     private Coroutine currentCoroutine;                                     // 반복 호출로 인한 메모리 누수 방지
-    private bool isFinish;                                                  // E 키 입력받기위한 변수
+    private bool dialogueFlag;                                              // E 키 입력받기위한 변수
     private int currentDialogueCounter;                                     // 현재 대사 카운트
     private int eventCounter;                                               // 챕터 이벤트 카운트
 
@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
         // 변수 초기화
         currentDialogueCounter = 0;
         eventCounter = 0;
-        isFinish = false;
+        dialogueFlag = false;
 
         TMP_Text[] texts = GetComponentsInChildren<TMP_Text>();
         Image[] images = GetComponentsInChildren<Image>();
@@ -75,27 +75,23 @@ public class DialogueManager : MonoBehaviour
     #region 콜백함수 이벤트
     private void HandleDialogueStart()
     {
+        Debug.Log("HandleDialogueStart");
         // 화살표 비활성화
         arrow.SetActive(false);
-        isFinish = false;
+        dialogueFlag = false;
 
         // 대화 창 초기화
         this.gameObject.transform.localScale = Vector3.one;
         characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
         nameText.text = characterName; 
         dialogueText.text = "";
-
-        // Transition Type이 Before
-        if (transitionType == 0)
-        {
-            StartCoroutine(TransitionEvent());
-        }
     }
 
     private void HandleDialogueEnd()
     {
+        Debug.Log("HandleDialogueEnd");
         // 화살표 활성화
-        isFinish = true;
+        dialogueFlag = true;
         arrow.SetActive(true);
         currentDialogueCounter++;
     }
@@ -103,13 +99,11 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TransitionEvent()
     {
         this.gameObject.transform.localScale = Vector3.zero;
-        Debug.Log("StartTransitionEvent");
 
         isTransition = false;
         uEvent[eventCounter++]?.Invoke();
         yield return new WaitUntil(() => isTransition == true);
         isTransition = false;
-        Debug.Log("EndTransitionEvent");
         this.gameObject.transform.localScale = Vector3.one;
     }
     #endregion
@@ -118,12 +112,12 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isFinish)
+        if (!dialogueFlag)
             return;
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            isFinish = false;
+            dialogueFlag = false;
 
             if(transitionType == 1)
             {
@@ -133,7 +127,7 @@ public class DialogueManager : MonoBehaviour
             if (nextIndex == -1)
             {
                 // 플레이어 움직일 수 있게 해야함
-                MainController.instance.ChangeState(MainController.instance._idleState);
+                MainController.instance.ChangeIdleState();
                 // 대화창 스케일 0
                 this.gameObject.transform.localScale = Vector3.zero;
             }
@@ -157,7 +151,14 @@ public class DialogueManager : MonoBehaviour
     {
         // 대사 시작 이벤트 호출
         OnDialogueStarted?.Invoke();
-        
+
+
+        // Transition Type이 Before
+        if (transitionType == 0)
+        {
+            yield return StartCoroutine(TransitionEvent());
+        }
+
         //대사 나오는 도중 Space바를 누르면 대사 스킵
         for (int i = 0; i < dialogue.Length; i++) 
         {

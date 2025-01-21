@@ -54,6 +54,11 @@ public class MainController : MonoBehaviour
     {
         UpdateState();
         CurrentDirection = new(anim.GetFloat("DirX"), anim.GetFloat("DirY"));
+        if (movement == Vector2.zero)
+            anim.SetBool("Idle", true);
+        else
+            anim.SetBool("Idle", false);
+
         CheckInteraction();
     }
 
@@ -109,5 +114,15 @@ public class MainController : MonoBehaviour
 
             lastInteractedObject = currentInteraction;
         }
+    }
+
+    public void ChangeWaitState()
+    {
+        ChangeState(_waitState);
+    }
+
+    public void ChangeIdleState()
+    {
+        ChangeState(_idleState);
     }
 }
