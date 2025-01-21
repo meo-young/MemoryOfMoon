@@ -30,15 +30,6 @@ public class Chapter2 : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
     private IEnumerator TimeLineCoroutine(PlayableDirector timeline, Action onCompleted = null)
     {
         MainController.instance.ChangeState(MainController.instance._waitState);

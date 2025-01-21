@@ -9,5 +9,6 @@
         "ProjectSettings/": true,
         "Temp/": true,
         "UserSettings/": true
-    }
+    },
+    "editor.codeLens": false
 }
