@@ -5,6 +5,7 @@ public static class Constant
     [Header("# 페이드 관련 수치")]
     public static float     FADE_SCREEN_DURATION = 1f;          // 전체화면 페이드 시간
     public static float     FADE_SCREEN_AFTER_DELAY = 1f;       // 전체화면 페이드 후 딜레이
+    public static float     FADE_SPRITE_DURATION = 0.3f;        // 스프라이트 페이드 시간
 
     [Header("# 씬 관련 수치")]
     public static string    SCENE_TITLE = "Title";
