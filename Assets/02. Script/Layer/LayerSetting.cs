@@ -7,9 +7,12 @@ public class LayerSetting : MonoBehaviour
 
     private int originSortingOrder;
 
+    private void Awake() {
+        targetRenderer = GetComponentInParent<SpriteRenderer>();        
+    }
+
     void Start()
     {
-        targetRenderer = GetComponentInParent<SpriteRenderer>();
         playerRenderer = GameManager.instance.player.GetComponent<SpriteRenderer>();
 
         originSortingOrder = targetRenderer.sortingOrder;
