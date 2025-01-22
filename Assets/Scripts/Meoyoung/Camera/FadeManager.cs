@@ -27,7 +27,6 @@ public class FadeManager : MonoBehaviour
 
     void Start()
     {
-        fadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
         JustFade();
         //fadeImage.gameObject.SetActive(false);
     }

@@ -122,13 +122,8 @@ public class PlayerController : MonoBehaviour
         maxDialogueCounter = 1;
         kannaAnim = false;
         isDialogue = false;
-        FadeManager.Instance.JustFade(); //화면 fade In
 
-        monologuePanel.SetActive(false);
-        dialoguePanel.SetActive(false);
         DirectionUtils.Initialize(this); // 플레이어 Direction 체크하는 함수 초기화
-
-        _dialogueManager = FindObjectOfType<DialogueManager2>();
 
         _waitState = gameObject.AddComponent<PlayerWaitState>();
         _idleState = gameObject.AddComponent<PlayerIdleState>();

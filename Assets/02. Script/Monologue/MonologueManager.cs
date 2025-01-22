@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,11 +8,11 @@ public class MonologueManager : MonoBehaviour
 {
     public static MonologueManager instance;
 
-    private Dictionary<string, string> monologues => loadMonoData.monologues;   // µ¶¹é µ¥ÀÌÅÍ
-    private LoadMonologueDatatable loadMonoData;                                // µ¶¹é µ¥ÀÌÅÍ¸¦ ¾ò¾î¿À±âÀ§ÇÑ º¯¼ö
-    private GameObject monologuePanel;                                          // µ¶¹éÀÌ Ãâ·ÂµÉ ÆĞ³Î
-    private TMP_Text monologueText;                                             // µ¶¹éÀ» Ç¥½ÃÇÒ ÅØ½ºÆ®
-    private WaitForSeconds typingTime = new WaitForSeconds(0.05f);              // ¸Ş¸ğ¸® ´©¼ö ¹æÁö¸¦ À§ÇÑ »çÀü ¼±¾ğ
+    private Dictionary<string, string> monologues => loadMonoData.monologues;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private LoadMonologueDatatable loadMonoData;                                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private GameObject monologuePanel;                                          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Âµï¿½ ï¿½Ğ³ï¿½
+    private TMP_Text monologueText;                                             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
+    private WaitForSeconds typingTime = new WaitForSeconds(0.05f);              // ëª¨ë…¸ë¡œê·¸ ì¶œë ¥ ë”œë ˆì´ë¥¼ ìœ„í•œ ì‹œê°„ ë³€ìˆ˜
 
     #region Singleton + Initalize
     private void Awake()

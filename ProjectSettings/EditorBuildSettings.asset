@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/01. Scene/00. Manual/Manual.unity
     guid: e7cd358b525599646a0b2ef75fcfdf7f
   - enabled: 1
-    path: Assets/01. Scene/01. Chapter/Mansion.unity
+    path: Assets/01. Scene/01. Chapter/Mansion2.unity
     guid: bdb4a72a744392f438487956a7029ba3
   - enabled: 1
     path: Assets/Scenes/Chapter1/ToBeContinue.unity
