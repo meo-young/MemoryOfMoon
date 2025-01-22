@@ -1,0 +1,113 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static Constant;
+
+public class FadeManager2 : MonoBehaviour
+{
+    public static FadeManager2 instance;
+
+    private Image defaultImage;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        defaultImage = GetComponentInChildren<Image>();
+    }
+
+    private void Start()
+    {
+        defaultImage.enabled = false;
+    }
+
+
+    public void FadeOut(Image image = null, Action onComplete = null)
+    {
+        if (image == null)
+            image = defaultImage;
+
+
+        StartCoroutine(FadeOutCoroutine(image, onComplete));
+    }
+
+    public void FadeIn(Image image = null, Action onComplete = null)
+    {
+        if (image == null)
+            image = defaultImage;
+
+
+        StartCoroutine(FadeInCoroutine(image, onComplete));
+    }
+
+    private IEnumerator FadeInCoroutine(Image image, Action onComplete)
+    {
+        image.enabled = true;
+
+        float elapsedTime = 0f;
+        SetAlpha(image, 1f);
+
+        while (elapsedTime < FADE_SCREEN_DURATION)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / FADE_SCREEN_DURATION);
+            SetAlpha(image, alpha);
+            yield return null;
+        }
+
+        // 오차방지 차원에서 투명도를 0으로 설정
+        SetAlpha(image, 0f);
+
+        // 이미지 비활성화
+        image.enabled = false;
+
+        // fadeDuration만큼의 딜레이
+        yield return new WaitForSeconds(FADE_SCREEN_AFTER_DELAY);
+
+        // 콜백함수 호출
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator FadeOutCoroutine(Image image, Action onComplete)
+    {
+        image.enabled = true;
+
+        float elapsedTime = 0f;
+        SetAlpha(image, 0f);
+
+        while (elapsedTime < FADE_SCREEN_DURATION)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / FADE_SCREEN_DURATION);
+
+            SetAlpha(image, alpha);
+            yield return null;
+        }
+
+        // 오차방지 차원에서 투명도를 1로 설정
+        SetAlpha(image, 1f);
+
+        // fadeDuration만큼의 딜레이
+        yield return new WaitForSeconds(FADE_SCREEN_AFTER_DELAY);
+
+        // 콜백함수 호출
+        onComplete?.Invoke();
+    }
+
+    private void SetAlpha(Image image, float alpha)
+    {
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
+    }
+}
