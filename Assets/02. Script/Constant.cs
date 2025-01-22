@@ -9,6 +9,6 @@ public static class Constant
     [Header("# 씬 관련 수치")]
     public static string    SCENE_TITLE = "Title";
     public static string    SCENE_MANUAL = "Manual";
-    public static string    SCENE_CHAPTER1 = "Chapter1";
+    public static string    SCENE_CHAPTER1 = "Mansion";
     public static string    SCENE_CHAPTER2 = "Chapter2";
 }
