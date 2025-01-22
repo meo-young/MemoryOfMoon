@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Constant;
 
 public class MonologueManager : MonoBehaviour
 {
     public static MonologueManager instance;
 
-    private Dictionary<string, string> monologues => loadMonoData.monologues;   // ���� ������
-    private LoadMonologueDatatable loadMonoData;                                // ���� �����͸� ���������� ����
-    private GameObject monologuePanel;                                          // ������ ��µ� �г�
-    private TMP_Text monologueText;                                             // ������ ǥ���� �ؽ�Ʈ
-    private WaitForSeconds typingTime = new WaitForSeconds(0.05f);              // 모노로그 출력 딜레이를 위한 시간 변수
+    private Dictionary<string, string> monologues => loadMonoData.monologues;   // 독백 데이터
+    private LoadMonologueDatatable loadMonoData;                                // 독백 데이터를 불러오는데 사용
+    private GameObject monologuePanel;                                          // 독백이 표시될 패널
+    private TMP_Text monologueText;                                             // 독백을 표시할 텍스트
+    private WaitForSeconds typingTime = new WaitForSeconds(MONOLOGUE_TYPING_TIME);              // 모노로그 출력 딜레이를 위한 시간 변수
 
     #region Singleton + Initalize
     private void Awake()

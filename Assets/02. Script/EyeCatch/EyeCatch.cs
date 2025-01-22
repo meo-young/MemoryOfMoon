@@ -23,6 +23,9 @@ public class EyeCatch : MonoBehaviour
             case EyeCatchState.Move:
                 StartCoroutine(EyeCatchCoroutine(PlayerWaitToIdle));
                 break;
+            case EyeCatchState.Skip:
+                PlayerWaitToIdle();
+                break;
         }
     }
 
@@ -52,6 +55,7 @@ public class EyeCatch : MonoBehaviour
     enum EyeCatchState
     {
         Dialogue,
-        Move
+        Move,
+        Skip
     }
 }

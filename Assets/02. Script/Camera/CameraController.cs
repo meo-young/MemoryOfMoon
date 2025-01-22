@@ -17,6 +17,9 @@ public class CameraController : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("Player");
         theCamera = GetComponent<Camera>();
+    }
+
+    private void Start() {
         CalculateCameraSize();
     }
 
