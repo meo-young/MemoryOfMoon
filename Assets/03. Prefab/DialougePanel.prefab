@@ -180,7 +180,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 91234bc21b351484390b16057a1d9abe, type: 3}
   - sprites:
     - {fileID: 21300000, guid: afd29f9def54c24488bea39534af5496, type: 3}
-  eventFlag: 0
+  isTransition: 0
 --- !u!1 &4042083001984465992
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,8 +246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uCE74\uB124 \uC544\uC8FC\uBA38\uB2C8\uB294 \uC798 \uACC4\uC138\uC694
-    ? \n\uC544\uAC00\uB294 \uC5B4\uB54C\uC694 ? \uC608\uBED0\uC694 ?"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 268cbabf5c7e87c46bd25a7114a1f4cd, type: 2}
   m_sharedMaterial: {fileID: 2577315545115805638, guid: 268cbabf5c7e87c46bd25a7114a1f4cd, type: 2}
@@ -459,7 +458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC720\uC6B0\uC9C0"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 268cbabf5c7e87c46bd25a7114a1f4cd, type: 2}
   m_sharedMaterial: {fileID: 2577315545115805638, guid: 268cbabf5c7e87c46bd25a7114a1f4cd, type: 2}
@@ -555,13 +554,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8104084650464297370}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7702198225313184249}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 213, y: 133}
@@ -595,7 +594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dcd73f0029bdd98489c8ccce55de8a21, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

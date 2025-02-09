@@ -31,11 +31,10 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector] public bool isTransition;                             // 트랜지션 여부
 
 
-    private int spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
+    private string spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
     private string characterName => loadDialogue.dialogueInfo[currentDialogueCounter].characterName;
     private string dialogue => loadDialogue.dialogueInfo[currentDialogueCounter].text;
     private int nextIndex => loadDialogue.dialogueInfo[currentDialogueCounter-1].nextIndex;
-    private int characterType => loadDialogue.dialogueInfo[currentDialogueCounter].characterType;
     private int transitionType => loadDialogue.dialogueInfo[currentDialogueCounter].transitionType;
 
     #region 초기화
@@ -81,9 +80,11 @@ public class DialogueManager : MonoBehaviour
 
         // 대화 창 초기화
         this.gameObject.transform.localScale = Vector3.one;
-        characterSprite.sprite = characterSpriteInfo[characterType].sprites[spriteType];
+
+        AddressableManager.instance.LoadSprite(characterName + "_" + spriteType, characterSprite);
         nameText.text = characterName; 
         dialogueText.text = "";
+
     }
 
     private void HandleDialogueEnd()
