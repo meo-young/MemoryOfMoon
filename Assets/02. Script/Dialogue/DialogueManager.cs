@@ -75,7 +75,6 @@ public class DialogueManager : MonoBehaviour
     #region 콜백함수 이벤트
     private void HandleDialogueStart()
     {
-        Debug.Log("HandleDialogueStart");
         // 화살표 비활성화
         arrow.SetActive(false);
         dialogueFlag = false;
@@ -89,7 +88,6 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleDialogueEnd()
     {
-        Debug.Log("HandleDialogueEnd");
         // 화살표 활성화
         dialogueFlag = true;
         arrow.SetActive(true);
@@ -138,7 +136,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue()
     {
-        MainController.instance.ChangeState(MainController.instance._waitState);
+        MainController.instance.ChangeWaitState();
 
         if(currentCoroutine != null)
             StopCoroutine(currentCoroutine);

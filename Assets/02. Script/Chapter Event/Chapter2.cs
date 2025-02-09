@@ -6,12 +6,19 @@ using UnityEngine.Playables;
 public class Chapter2 : MonoBehaviour
 {
     [Header("# 챕터 타임라인")]
-    [SerializeField] PlayableDirector doorOpen;
+    [SerializeField] PlayableDirector[] timeline;
 
+    private int currentTimelineIndex = 0;
     
     public void ChapterTimeline()
     {
-        StartCoroutine(TimeLineCoroutine(doorOpen));
+        StartCoroutine(TimeLineCoroutine(timeline[currentTimelineIndex]));
+    }
+
+    public void NextTimeline()
+    {
+        currentTimelineIndex++;
+        StartCoroutine(TimeLineCoroutine(timeline[currentTimelineIndex]));
     }
 
     private IEnumerator TimeLineCoroutine(PlayableDirector timeline, Action onCompleted = null)

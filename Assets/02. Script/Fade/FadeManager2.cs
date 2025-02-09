@@ -9,8 +9,9 @@ public class FadeManager2 : MonoBehaviour
 {
     public static FadeManager2 instance;
 
-    private Image defaultImage;
+    [SerializeField] FadeType fadeType;
 
+    private Image defaultImage;
     private Coroutine spriteFadeCoroutine;
 
 
@@ -31,7 +32,14 @@ public class FadeManager2 : MonoBehaviour
 
     private void Start()
     {
-        defaultImage.enabled = false;
+        switch (fadeType)
+        {
+            case FadeType.Start:
+                defaultImage.enabled = false;
+                break;
+            case FadeType.None:
+                break;
+        }
     }
 
 
@@ -166,5 +174,12 @@ public class FadeManager2 : MonoBehaviour
         Color color = spriteRenderer.color;
         color.a = alpha;
         spriteRenderer.color = color;
+    }
+
+
+    enum FadeType
+    {
+        None,
+        Start
     }
 }

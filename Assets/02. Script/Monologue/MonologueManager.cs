@@ -30,14 +30,14 @@ public class MonologueManager : MonoBehaviour
     }
     #endregion
 
-    public void ShowMonologue(string _objectName, Action action)
+    public void ShowMonologue(string _objectName)
     {
         monologuePanel.SetActive(true);
 
-        StartCoroutine(ActiveMonologue(_objectName, action));
+        StartCoroutine(ActiveMonologue(_objectName));
     }
 
-    private IEnumerator ActiveMonologue(string _objectName, Action action)
+    private IEnumerator ActiveMonologue(string _objectName)
     {
         string dialogue = monologues[_objectName];
 
@@ -59,7 +59,7 @@ public class MonologueManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                action();
+                MainController.instance.ChangeIdleState();
                 monologuePanel.SetActive(false);
                 break;
             }

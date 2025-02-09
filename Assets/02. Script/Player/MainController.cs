@@ -79,14 +79,10 @@ public class MainController : MonoBehaviour
         if (hit.collider == null)
             return;
 
-        IInteraction interactable = hit.collider.GetComponent<IInteraction>();
+        IInteractable interactable = hit.collider.GetComponent<IInteractable>();
         if (interactable != null)
             ChangeState(_waitState);
-        interactable.Interact(() =>
-        {
-            ChangeState(_idleState);
-        });
-
+        interactable?.Interact();
     }
 
     void CheckInteraction()
@@ -110,7 +106,7 @@ public class MainController : MonoBehaviour
             if (lastInteractedObject != null)
                 lastInteractedObject.StopInteraction();
 
-            currentInteraction.CanInteraction();
+            currentInteraction?.CanInteraction();
 
             lastInteractedObject = currentInteraction;
         }

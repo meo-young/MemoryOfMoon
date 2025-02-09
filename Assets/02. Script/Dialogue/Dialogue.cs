@@ -1,16 +1,11 @@
 using UnityEngine;
+using System;
 
-public class Dialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour, IInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Interact()
     {
         DialogueManager.instance.ShowDialogue();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(this);
     }
 }

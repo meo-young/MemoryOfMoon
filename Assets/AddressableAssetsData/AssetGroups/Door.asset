@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  m_GroupName: Door
+  m_GUID: c5db83d0db659294e99081b07f8e9754
+  m_SerializeEntries:
+  - m_GUID: 525fae32285b76b40aeccee3ba5c9cfc
+    m_Address: Locked_Door
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 604a58b9735363046ac46fea07651cce
+    m_Address: Close_Door
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90c176b4197759b4ba8ef738577c139a
+    m_Address: Open_Door
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: c846d3cb0b9d8e94db6e205e24d7e3fa, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: eaeee35199f25eb4ab6d0434480fceb2, type: 2}
+    - {fileID: 11400000, guid: 088fd85f7dbf78b4eb0a55ca1fe16273, type: 2}
