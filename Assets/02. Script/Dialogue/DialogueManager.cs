@@ -82,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         this.gameObject.transform.localScale = Vector3.one;
 
         AddressableManager.instance.LoadSprite(characterName + "_" + spriteType, characterSprite);
-        nameText.text = characterName; 
+        nameText.text = System.Text.RegularExpressions.Regex.Replace(characterName, @"\d", "");
         dialogueText.text = "";
 
     }
@@ -92,7 +92,8 @@ public class DialogueManager : MonoBehaviour
         // 화살표 활성화
         dialogueFlag = true;
         arrow.SetActive(true);
-        currentDialogueCounter++;
+        if(currentDialogueCounter < loadDialogue.dialogueInfo.Count-1)
+            currentDialogueCounter++;
     }
 
     IEnumerator TransitionEvent()
@@ -118,7 +119,7 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueFlag = false;
 
-            if(transitionType == 1)
+            if(transitionType == 1 || transitionType == 2)
             {
                 StartCoroutine(TransitionEvent());
             }
@@ -126,7 +127,8 @@ public class DialogueManager : MonoBehaviour
             if (nextIndex == -1)
             {
                 // 플레이어 움직일 수 있게 해야함
-                MainController.instance.ChangeIdleState();
+                if(MainController.instance != null)
+                    MainController.instance.ChangeIdleState();
                 // 대화창 스케일 0
                 this.gameObject.transform.localScale = Vector3.zero;
             }
@@ -153,7 +155,7 @@ public class DialogueManager : MonoBehaviour
 
 
         // Transition Type이 Before
-        if (transitionType == 0)
+        if (transitionType == 0 || transitionType == 2)
         {
             yield return StartCoroutine(TransitionEvent());
         }
