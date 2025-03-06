@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Global Volume Profile
+  m_Name: "\uC232 \uC18D \uC9C4\uC785 \uD6C4 Volume Profile"
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 4614344037372484277}
---- !u!114 &4614344037372484277
+  - {fileID: 3222440370362755220}
+--- !u!114 &3222440370362755220
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_Value: 0
   colorFilter:
     m_OverrideState: 1
-    m_Value: {r: 0.78431374, g: 0.8627451, b: 0.9411765, a: 1}
+    m_Value: {r: 0.8627451, g: 0.7058824, b: 0.627451, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
