@@ -5,12 +5,14 @@ using System.Collections;
 using System;
 using UnityEngine.Audio;
 using static Constant;
+
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    public SerializedDictionary<SFX, AudioClip> sfxs = new ();    // SFX 모음
-    public SerializedDictionary<BGM, AudioClip> bgms = new ();    // BGM 모음
+    public SerializedDictionary<SFX, AudioClips> sfxs = new ();    // SFX 모음
+    public SerializedDictionary<BGM, AudioClips> bgms = new ();    // BGM 모음
 
     [Header("# BGM")]
     [Range(0, 1)] public float bgmVolume;
@@ -84,9 +86,13 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        AudioClip clip = bgms[bgm];
+        if(bgms[bgm].clips.Length == 0)
+        {
+            Debug.LogWarning("BGM 클립이 없습니다");
+            return;
+        }
 
-        bgmPlayer.clip = clip;
+        bgmPlayer.clip = bgms[bgm].clips[UnityEngine.Random.Range(0, bgms[bgm].clips.Length)];
         bgmPlayer.Play();
     }
 
@@ -111,8 +117,14 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
+        if(sfxs[_sfx].clips.Length == 0)
+        {
+            Debug.LogWarning("SFX 클립이 없습니다");
+            return;
+        }
+
         AudioSource player = sfxQueue.Dequeue();
-        AudioClip clip = sfxs[_sfx];
+        AudioClip clip = sfxs[_sfx].clips[UnityEngine.Random.Range(0, sfxs[_sfx].clips.Length)];
 
         if (player != null)
         {
@@ -131,4 +143,11 @@ public class SoundManager : MonoBehaviour
         sfxQueue.Enqueue(player);
     }
     #endregion
+}
+
+
+[System.Serializable]
+public class AudioClips
+{
+    public AudioClip[] clips;
 }

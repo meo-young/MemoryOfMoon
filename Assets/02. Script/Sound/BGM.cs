@@ -1,7 +1,6 @@
 public enum BGM
 {
     TITLE = 0,
-    MANUAL = 1,
-    CHAPTER1 = 2,
-    CHAPTER2 = 3,
+    PROLOG_1 = 1,
+    PROLOG_2 = 2
 }

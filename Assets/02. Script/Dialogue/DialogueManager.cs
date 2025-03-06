@@ -28,6 +28,8 @@ public class DialogueManager : MonoBehaviour
     private event Action OnDialogueStarted;                                 // 대사 시작 이벤트
     private event Action OnDialogueEnded;                                   // 대사 종료 이벤트
 
+    private AudioSource dialogueAudioSource;                                // 대사 출력 사운드 재생을 위한 오디오 소스
+
     [HideInInspector] public bool isTransition;                             // 트랜지션 여부
 
 
@@ -66,6 +68,8 @@ public class DialogueManager : MonoBehaviour
         nameText = texts[0];
         dialogueText = texts[1];
 
+        dialogueAudioSource = GetComponent<AudioSource>();
+
         // 대화창 스케일 0으로 설정
         this.gameObject.transform.localScale = Vector3.zero;
     }
@@ -89,6 +93,9 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleDialogueEnd()
     {
+        // 대사 출력 사운드 중지
+        dialogueAudioSource.Stop();
+
         // 화살표 활성화
         dialogueFlag = true;
         arrow.SetActive(true);
@@ -159,6 +166,11 @@ public class DialogueManager : MonoBehaviour
         {
             yield return StartCoroutine(TransitionEvent());
         }
+
+        // 대사 출력 사운드 재생
+        AudioClip clip = SoundManager.instance.sfxs[SFX.DIALOGUE].clips[UnityEngine.Random.Range(0, SoundManager.instance.sfxs[SFX.DIALOGUE].clips.Length)];
+        dialogueAudioSource.clip = clip;
+        dialogueAudioSource.Play();
 
         //대사 나오는 도중 Space바를 누르면 대사 스킵
         for (int i = 0; i < dialogue.Length; i++) 
