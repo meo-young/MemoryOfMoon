@@ -20,6 +20,8 @@ public class SoundManager : MonoBehaviour
     [Header("# SFX")]
     public int channels;
     [Range(0, 1)] public float sfxVolume;
+    [Tooltip("소리가 들리는 최대 거리")]
+    public float maxHearDistance = 20f;     // 소리가 들리는 최대 거리 추가
 
 
     private AudioSource bgmPlayer;
@@ -109,7 +111,7 @@ public class SoundManager : MonoBehaviour
     #endregion
 
     #region SFX
-    public void PlaySFX(SFX _sfx)
+    public void PlaySFX(SFX _sfx, Vector3 _position = default)
     {
         if (sfxQueue.Count == 0)
         {
@@ -129,18 +131,46 @@ public class SoundManager : MonoBehaviour
         if (player != null)
         {
             player.clip = clip;
-
-            player.Play();
-
-            StartCoroutine(ReturnToQueueAfterPlay(player));
+            player.volume = UnityEngine.Random.Range(sfxVolume - 0.1f, sfxVolume + 0.1f);
+            PlaySoundWithSpaceEffect(player, _position);
         }
     }
 
-    private IEnumerator ReturnToQueueAfterPlay(AudioSource player)
+    private void PlaySoundWithSpaceEffect(AudioSource _audioSource, Vector3 _position)
     {
-        yield return new WaitForSeconds(player.clip.length);
+        // 위치가 지정된 경우에만 스테레오 팬과 거리 기반 볼륨 적용
+        if (_position != default)
+        {
+            // 카메라 기준으로 상대적 위치 계산
+            Vector3 cameraPosition = Camera.main.transform.position;
+            Vector3 directionToSound = _position - cameraPosition;
+            Vector3 localDirection = Camera.main.transform.InverseTransformDirection(directionToSound);
+            float distance = directionToSound.magnitude;
 
-        sfxQueue.Enqueue(player);
+            // 거리에 따른 볼륨 계산
+            float volumeMultiplier = 1f - Mathf.Clamp01(distance / maxHearDistance);
+            _audioSource.volume = sfxVolume * volumeMultiplier;
+
+            // 좌우 위치에 따른 StereoPan 계산 (-1 ~ 1)
+            float stereoPan = Mathf.Clamp(localDirection.x / 5f, -1f, 1f);
+                
+            // 상하 위치에 따른 가중치 계산 (0 ~ 1)
+            float verticalFactor = Mathf.Abs(localDirection.y) / 5f;
+            verticalFactor = Mathf.Clamp01(verticalFactor);
+                
+            // 상하 거리가 멀수록 좌우 효과를 감소
+            stereoPan *= (1f - verticalFactor * 0.5f);
+                
+            _audioSource.panStereo = stereoPan;
+        }
+        else
+        {
+            _audioSource.panStereo = 0f;
+            _audioSource.volume = sfxVolume;
+        }
+
+        _audioSource.Play();
+        sfxQueue.Enqueue(_audioSource);
     }
     #endregion
 }
