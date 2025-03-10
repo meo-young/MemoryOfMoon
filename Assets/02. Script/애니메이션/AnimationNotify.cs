@@ -48,7 +48,7 @@ public class AnimationNotify : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position + Vector3.up, 
             Vector2.down, 
-            2f, 
+            0.5f, 
             terrainLayer
         );
 
