@@ -75,7 +75,7 @@ public class AnimationNotify : MonoBehaviour
             case TerrainType.Grass:
                 return $"{prefix}_GRASS_WALK";
             case TerrainType.Concrete:
-                return $"{prefix}_GRASS_WALK";
+                return $"{prefix}_CONCRETE_WALK";
             case TerrainType.Water:
                 return $"{prefix}_GRASS_WALK";
             default:
