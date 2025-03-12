@@ -3,12 +3,20 @@ using UnityEngine.UI;
 
 public class LoadSceneData : MonoBehaviour
 {
+    public static LoadSceneData instance;
+
     [SerializeField] private SceneData[] sceneDatas;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private RectTransform contentRectTransform;
 
     private int currentSceneIndex = 0;
     private int currentCheckPointIndex = 0;
+    private bool isLoadSceneUIActive = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -21,10 +29,36 @@ public class LoadSceneData : MonoBehaviour
     }
 
     /// <summary>
+    /// 불러오기 UI 활성화
+    /// </summary>
+    public void ShowLoadSceneUI()
+    {
+        transform.localScale = Vector3.one;
+        isLoadSceneUIActive = true;
+    }
+
+    /// <summary>
+    /// 불러오기 UI 비활성화
+    /// </summary>
+    public void HideLoadSceneUI()
+    {
+        transform.localScale = Vector3.zero;
+        isLoadSceneUIActive = false;
+    }
+
+    /// <summary>
     /// 방향키로 체크 포인트 이미지 포커싱 제어
     /// </summary>
     private void ControlCheckPointImage()
     {
+        if(!isLoadSceneUIActive) return;
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            TitleManager.instance.ShowTitleUI();
+            HideLoadSceneUI();
+        }
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             MoveCheckPoint(ref currentSceneIndex, 1);

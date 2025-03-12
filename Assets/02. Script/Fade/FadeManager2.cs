@@ -21,6 +21,9 @@ public class FadeManager2 : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            // 씬 전환 이벤트 등록
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -40,6 +43,27 @@ public class FadeManager2 : MonoBehaviour
             case FadeType.None:
                 break;
         }
+    }
+
+    /// <summary>
+    /// Destory가 호출되는 경우 씬 전환 이벤트 해제
+    /// </summary>
+    private void OnDestroy()
+    {
+        // 이벤트 해제
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
+
+    /// <summary>
+    /// 씬 전환 이벤트 연결
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FadeIn();
     }
 
 
