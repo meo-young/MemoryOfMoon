@@ -878,7 +878,7 @@ SpriteRenderer:
   m_SortingLayerID: -968529623
   m_SortingLayer: 3
   m_SortingOrder: 5
-  m_Sprite: {fileID: -368536784, guid: ccd8385ed2c94604dab33ba8f09b5fef, type: 3}
+  m_Sprite: {fileID: -1287960917, guid: a714bb49977d0914187b98b887177c4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -898,7 +898,7 @@ Transform:
   m_GameObject: {fileID: 108238434}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.9375, y: -21.494, z: 0}
+  m_LocalPosition: {x: -4.55, y: -21.494, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4795,7 +4795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &625034038
 Animator:
   serializedVersion: 7
@@ -4806,7 +4806,7 @@ Animator:
   m_GameObject: {fileID: 625034037}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5ebbe8fc30a9f54c91245031698cc90, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11548,7 +11548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 97d49998c9baa2543aaa1a94fd1a3bba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e11a986e49e1a5f4aab3a3f85648282c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12291,8 +12291,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907790746}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.2, y: -21.67, z: 0}
+  m_LocalRotation: {x: -0, y: -0.00000004371139, z: -0, w: -1}
+  m_LocalPosition: {x: 4.28, y: -21.67, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12859,6 +12859,8 @@ PlayableDirector:
     value: {fileID: 1173192779}
   - key: {fileID: -7652554371493278359, guid: 34bcdb36f8e934140a7b538db0cc1b5e, type: 2}
     value: {fileID: 1712263142}
+  - key: {fileID: -5429668990557362837, guid: 34bcdb36f8e934140a7b538db0cc1b5e, type: 2}
+    value: {fileID: 625034037}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1967378447
