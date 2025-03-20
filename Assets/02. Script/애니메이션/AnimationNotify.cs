@@ -46,9 +46,9 @@ public class AnimationNotify : MonoBehaviour
     {
         // 2D 레이캐스트 사용
         RaycastHit2D hit = Physics2D.Raycast(
-            transform.position + Vector3.up, 
+            transform.position, 
             Vector2.down, 
-            0.5f, 
+            0.01f, 
             terrainLayer
         );
 

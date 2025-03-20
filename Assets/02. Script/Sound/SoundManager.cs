@@ -152,10 +152,10 @@ public class SoundManager : MonoBehaviour
             _audioSource.volume = sfxVolume * volumeMultiplier;
 
             // 좌우 위치에 따른 StereoPan 계산 (-1 ~ 1)
-            float stereoPan = Mathf.Clamp(localDirection.x / 5f, -1f, 1f);
+            float stereoPan = Mathf.Clamp(localDirection.x / 3f, -1f, 1f);
                 
             // 상하 위치에 따른 가중치 계산 (0 ~ 1)
-            float verticalFactor = Mathf.Abs(localDirection.y) / 5f;
+            float verticalFactor = Mathf.Abs(localDirection.y) / 3f;
             verticalFactor = Mathf.Clamp01(verticalFactor);
                 
             // 상하 거리가 멀수록 좌우 효과를 감소
