@@ -18,17 +18,8 @@ public class FadeManager2 : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-
-            // 씬 전환 이벤트 등록
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        
 
         defaultImage = GetComponentInChildren<Image>();
     }

@@ -149,7 +149,6 @@ public class SoundManager : MonoBehaviour
 
             // 거리에 따른 볼륨 계산
             float volumeMultiplier = 1f - Mathf.Clamp01(distance / maxHearDistance);
-            _audioSource.volume = sfxVolume * volumeMultiplier;
 
             // 좌우 위치에 따른 StereoPan 계산 (-1 ~ 1)
             float stereoPan = Mathf.Clamp(localDirection.x / 3f, -1f, 1f);
@@ -159,7 +158,10 @@ public class SoundManager : MonoBehaviour
             verticalFactor = Mathf.Clamp01(verticalFactor);
                 
             // 상하 거리가 멀수록 좌우 효과를 감소
-            stereoPan *= (1f - verticalFactor * 0.5f);
+            stereoPan *= (1f - verticalFactor);
+
+            volumeMultiplier *= (1f - (verticalFactor));
+            _audioSource.volume = sfxVolume * volumeMultiplier;
                 
             _audioSource.panStereo = stereoPan;
         }
