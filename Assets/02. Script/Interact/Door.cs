@@ -9,11 +9,13 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
     private Transform transferPoint; // 이동할 위치
     private AudioSource audioSource;
     private GameObject arrow;
+    private string locationName;
 
     private void Awake()
     {
         arrow = transform.GetChild(0).gameObject;
         transferPoint = transform.GetChild(1);
+        locationName = gameObject.name;
         audioSource = GetComponent<AudioSource>();
 
         if(arrow.activeSelf)
@@ -64,6 +66,11 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
         if (transferPoint)
         {
             MainController.instance.transform.position = transferPoint.position;
+        }
+
+        if (LocationText.instance)
+        {
+            LocationText.instance.ShowLocationText(locationName);
         }
     }
 
