@@ -123,30 +123,35 @@ public class DialogueManager : MonoBehaviour
         if (!dialogueFlag)
             return;
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+        dialogueFlag = false;
+
+        if(transitionType is 1 or 2)
         {
-            dialogueFlag = false;
-
-            if(transitionType == 1 || transitionType == 2)
+            StartCoroutine(TransitionEvent());
+        }
+            
+        if (nextIndex == -1)
+        {
+            // 플레이어 움직일 수 있게 해야함
+            if(MainController.instance)
+                MainController.instance.ChangeIdleState();
+            // 대화창 스케일 0
+            this.gameObject.transform.localScale = Vector3.zero;
+                
+            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
             {
-                StartCoroutine(TransitionEvent());
+                currentDialogueCounter++;   
             }
-
-            if (nextIndex == -1)
+        }
+        else
+        {
+            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
             {
-                // 플레이어 움직일 수 있게 해야함
-                if(MainController.instance != null)
-                    MainController.instance.ChangeIdleState();
-                // 대화창 스케일 0
-                this.gameObject.transform.localScale = Vector3.zero;
+                currentDialogueCounter++;   
             }
-            else
-            {
-                if(currentDialogueCounter < loadDialogue.dialogueInfo.Count-1)
-                    currentDialogueCounter++;
-
-                     ShowDialogue();
-            }
+                
+            ShowDialogue();
         }
     }
 
