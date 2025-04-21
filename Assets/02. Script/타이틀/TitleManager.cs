@@ -35,6 +35,9 @@ public class TitleManager : MonoBehaviour
 
         // 타이틀 UI 활성화
         ShowTitleUI();
+
+        // 게임시작 시 타이틀 브금 출력
+        SoundManager.instance.PlayBGM(BGM.TITLE);
     }
 
     private void Update() 
@@ -73,6 +76,7 @@ public class TitleManager : MonoBehaviour
         // 아래 방향키를 누르는 경우 다음 텍스트로 이동
         if(Input.GetKeyDown(KeyCode.DownArrow))
         {
+            SoundManager.instance.PlaySFX(SFX.UI_Hover);
             currentIndex++;
             if(currentIndex >= titleText.Length)
             {
@@ -83,6 +87,7 @@ public class TitleManager : MonoBehaviour
         // 위 방향키를 누르는 경우 이전 텍스트로 이동
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
+            SoundManager.instance.PlaySFX(SFX.UI_Hover);
             currentIndex--;
             if(currentIndex < 0)
             {
@@ -94,6 +99,7 @@ public class TitleManager : MonoBehaviour
         // 엔터키를 누르는 경우 포커싱된 텍스트에 맞는 함수 호출
         if(Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.instance.PlaySFX(SFX.UI_Click);
             // 타이틀 UI 비활성화
             isTitleTextFocused = false;
 
@@ -105,7 +111,7 @@ public class TitleManager : MonoBehaviour
             {
                 ShowLoadSceneUI();
             }
-            else if(currentIndex == 3)
+            else if(currentIndex == 2)
             {
                 QuitGame();
             }

@@ -32,9 +32,7 @@ public class SoundManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-    }
 
-    private void Start() {
         Init();
     }
 

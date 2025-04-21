@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01. Scene/-. Title/Title.unity
+    path: Assets/01. Scene/Title.unity
     guid: 89746fcd20af01a4892d5cf1fd965a52
   - enabled: 1
-    path: Assets/01. Scene/-. Prolog/Prolog.unity
+    path: Assets/01. Scene/Prolog.unity
     guid: cbfd11ef6bc3c3c48a1d6d2e543bbb44
-  - enabled: 0
-    path: Assets/01. Scene/00. Manual/Manual.unity
+  - enabled: 1
+    path: Assets/01. Scene/Manual.unity
     guid: e7cd358b525599646a0b2ef75fcfdf7f
+  - enabled: 1
+    path: Assets/01. Scene/01. Chapter/Mansion.unity
+    guid: 572a6774531c69d46bfb0865e9287a2e
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 12dbe262305efc84f9bc9216fca281ac, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

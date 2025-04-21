@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine.Playables;
 using AYellowpaper.SerializedCollections;
+using static Constant;
 
 
 public class Chapter2 : MonoBehaviour
@@ -19,6 +20,11 @@ public class Chapter2 : MonoBehaviour
                 Destroy(pd.gameObject);
             };
         }
+    }
+
+    public void SceneTransition(string sceneName)
+    {
+        SceneController.instance.LoadScene(sceneName);
     }
     
     public void ChapterTimeline()
@@ -49,8 +55,6 @@ public class Chapter2 : MonoBehaviour
 
         timeline.Play();
         yield return new WaitUntil(() => timeline == null || timeline.state == PlayState.Paused);
-        
-        if(timeline != null)
         DialogueManager.instance.isTransition = true;
     }
 }

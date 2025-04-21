@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1646675442451153742
+--- !u!1 &2949427433085895166
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6299747218037517039}
-  - component: {fileID: 7397341428121366078}
+  - component: {fileID: 7941240371149305414}
+  - component: {fileID: 6749168038343694760}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6299747218037517039
+--- !u!4 &7941240371149305414
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646675442451153742}
+  m_GameObject: {fileID: 2949427433085895166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -445.164, y: 1917.6781, z: -52.994736}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7397341428121366078
+--- !u!114 &6749168038343694760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646675442451153742}
+  m_GameObject: {fileID: 2949427433085895166}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c8dd86ca6ef17b45956ab44115fbcd4, type: 3}
@@ -47,11 +47,52 @@ MonoBehaviour:
   sfxs:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value:
+        clips:
+        - {fileID: 8300000, guid: f1cd6cfc131a6d043b0eaa50bd6f0445, type: 3}
+        - {fileID: 8300000, guid: 7e520d1a76dfbff45881e3299ea858d9, type: 3}
+    - Key: 1
+      Value:
+        clips:
+        - {fileID: 8300000, guid: 61239a9c64f9daa45959ff70dabc5b6c, type: 3}
+        - {fileID: 8300000, guid: 1f96619c276874e4bb8b54d194a8d126, type: 3}
+        - {fileID: 8300000, guid: aacf456ea441dc249bb3e10b0d86961b, type: 3}
+        - {fileID: 8300000, guid: fbd0a619b548aa945a3bd9813e236b0f, type: 3}
+    - Key: 2
+      Value:
+        clips:
+        - {fileID: 8300000, guid: e62fd5115f421054eb8514b91f9004c2, type: 3}
+        - {fileID: 8300000, guid: f7cd6e053aafbbd429d1675a6118c250, type: 3}
+        - {fileID: 8300000, guid: 61c7ad8213f761941aa7431f514d23e5, type: 3}
+        - {fileID: 8300000, guid: ffc2abab7761ce24fa2856e9020f9ff1, type: 3}
+    - Key: 4
+      Value:
+        clips:
+        - {fileID: 8300000, guid: 633b17a8a49b4344cb487753ee072c26, type: 3}
+        - {fileID: 8300000, guid: 47cc32afc06f65d4ca5c98c76bae1af6, type: 3}
+        - {fileID: 8300000, guid: 55467aaa37bb7c749bfb1b453199f619, type: 3}
+        - {fileID: 8300000, guid: e13a44c4c98fc0446834019bc1bbb744, type: 3}
+    - Key: 5
+      Value:
+        clips:
+        - {fileID: 8300000, guid: 24a90f74339d6b743a314e97a944676e, type: 3}
+        - {fileID: 8300000, guid: 39e705a371f216d4fa5cf9be590d31da, type: 3}
+        - {fileID: 8300000, guid: b281503a2a16d5c4292f6182dbae209b, type: 3}
+        - {fileID: 8300000, guid: 4dd6531e7ea71a4429119b9d72efa68e, type: 3}
   bgms:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
-  bgmVolume: 0
-  channels: 20
-  sfxVolume: 0
+      Value:
+        clips: []
+    - Key: 1
+      Value:
+        clips:
+        - {fileID: 8300000, guid: 4a87cdf1f7622d44289228354886f93b, type: 3}
+    - Key: 2
+      Value:
+        clips:
+        - {fileID: 8300000, guid: 58a66108639fada4ba34f894b5c366a2, type: 3}
+  bgmVolume: 1
+  channels: 30
+  sfxVolume: 0.75
+  maxHearDistance: 18

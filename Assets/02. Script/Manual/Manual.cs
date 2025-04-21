@@ -32,7 +32,7 @@ public class Manual : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             canClick = false;
-            SceneController.instance.LoadScene(SCENE_CHAPTER1);
+            SceneController.instance.LoadScene(SCENE_PROLOG);
         }
     }
 }

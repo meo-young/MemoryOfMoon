@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
     private string spriteType => loadDialogue.dialogueInfo[currentDialogueCounter].spriteType;
     private string characterName => loadDialogue.dialogueInfo[currentDialogueCounter].characterName;
     private string dialogue => loadDialogue.dialogueInfo[currentDialogueCounter].text;
-    private int nextIndex => loadDialogue.dialogueInfo[currentDialogueCounter-1].nextIndex;
+    private int nextIndex => loadDialogue.dialogueInfo[currentDialogueCounter].nextIndex;
     private int transitionType => loadDialogue.dialogueInfo[currentDialogueCounter].transitionType;
 
     #region 초기화
@@ -99,8 +99,6 @@ public class DialogueManager : MonoBehaviour
         // 화살표 활성화
         dialogueFlag = true;
         arrow.SetActive(true);
-        if(currentDialogueCounter < loadDialogue.dialogueInfo.Count-1)
-            currentDialogueCounter++;
     }
 
     IEnumerator TransitionEvent()
@@ -109,9 +107,12 @@ public class DialogueManager : MonoBehaviour
 
         isTransition = false;
         uEvent[eventCounter++]?.Invoke();
+        Debug.Log("Wait");
         yield return new WaitUntil(() => isTransition == true);
+        Debug.Log("Finishied");
         isTransition = false;
         this.gameObject.transform.localScale = Vector3.one;
+        Debug.Log("Scale one");
     }
     #endregion
 
@@ -140,7 +141,12 @@ public class DialogueManager : MonoBehaviour
                 this.gameObject.transform.localScale = Vector3.zero;
             }
             else
-                ShowDialogue();
+            {
+                if(currentDialogueCounter < loadDialogue.dialogueInfo.Count-1)
+                    currentDialogueCounter++;
+
+                     ShowDialogue();
+            }
         }
     }
 
@@ -160,12 +166,15 @@ public class DialogueManager : MonoBehaviour
         // 대사 시작 이벤트 호출
         OnDialogueStarted?.Invoke();
 
+        Debug.Log("Invoke");
 
         // Transition Type이 Before
         if (transitionType == 0 || transitionType == 2)
         {
             yield return StartCoroutine(TransitionEvent());
         }
+
+        Debug.Log("Transition Finished");
 
         // 대사 출력 사운드 재생
         AudioClip clip = SoundManager.instance.sfxs[SFX.DIALOGUE].clips[UnityEngine.Random.Range(0, SoundManager.instance.sfxs[SFX.DIALOGUE].clips.Length)];
