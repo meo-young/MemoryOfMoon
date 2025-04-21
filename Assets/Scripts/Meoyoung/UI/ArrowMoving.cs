@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ArrowMoving : MonoBehaviour
 {
-    private float moveSpeed = 1f;       // 오브젝트의 이동 속도
-    private float moveDistance = 0.5f;    // 오브젝트가 이동할 최대 거리
+    private float moveSpeed = 0.1f;       // 오브젝트의 이동 속도
+    private float moveDistance = 0.025f;    // 오브젝트가 이동할 최대 거리
 
     private Vector3 startPosition;
     private float moveDirection = 1f;
