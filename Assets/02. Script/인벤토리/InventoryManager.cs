@@ -5,6 +5,21 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    #region Singleton
+    public static InventoryManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+    
     [Tooltip("인벤토리에서 보여줄 프리팹")]
     [SerializeField] private GameObject invenPrefab;
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
@@ -17,10 +32,10 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        /*if (Input.GetKeyDown(KeyCode.I))
         {
             iv.SetActive(!iv.activeSelf);
-        }
+        }*/
     }
     public void AddItem(ItemInfo itemName)
     {
@@ -34,7 +49,7 @@ public class InventoryManager : MonoBehaviour
             Debug.Log(itemName + "을 처음으로 습득했습니다.");
             inventory[itemName] = 1; // 처음 추가될 때 0으로 초기화 후 1을 더함
         }
-        PrintInventory();
+        //PrintInventory();
     }
 
     public void RemoveItem(ItemInfo itemName)
@@ -50,7 +65,7 @@ public class InventoryManager : MonoBehaviour
                 inventory.Remove(itemName);
             }
         }
-        PrintInventory();
+        //PrintInventory();
     }
 
     public void RemoveAllItems()

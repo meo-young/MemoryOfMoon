@@ -6,13 +6,13 @@ public class MainIdleState : MonoBehaviour, IControllerState
 
     public void OnStateEnter(MainController controller)
     {
-        if (mc == null)
+        if (!mc)
             mc = controller;
     }
 
     public void OnStateUpdate()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             mc.ChangeState(mc._walkState);
         }

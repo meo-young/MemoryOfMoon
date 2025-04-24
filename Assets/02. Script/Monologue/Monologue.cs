@@ -12,7 +12,7 @@ public class Monologue : MonoBehaviour, IInteraction
 
     public void CanInteraction()
     {
-        if (arrow == null)
+        if (arrow)
             return;
 
         arrow.SetActive(true);
@@ -20,7 +20,7 @@ public class Monologue : MonoBehaviour, IInteraction
 
     public void StopInteraction()
     {
-        if (arrow == null)
+        if (arrow)
             return;
 
         arrow.SetActive(false);

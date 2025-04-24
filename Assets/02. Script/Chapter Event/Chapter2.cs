@@ -45,7 +45,7 @@ public class Chapter2 : MonoBehaviour
 
     private IEnumerator TimeLineCoroutine(PlayableDirector timeline)
     {
-        if (timeline == null)
+        if (!timeline)
         {
             Debug.LogError("타임라인이 null입니다.");
             yield break;
@@ -54,7 +54,7 @@ public class Chapter2 : MonoBehaviour
         MainController.instance.ChangeWaitState();
 
         timeline.Play();
-        yield return new WaitUntil(() => timeline == null || timeline.state == PlayState.Paused);
+        yield return new WaitUntil(() => !timeline || timeline.state == PlayState.Paused);
         DialogueManager.instance.isTransition = true;
     }
 }

@@ -7,5 +7,6 @@ public enum SFX
     PLAYER_CONCRETE_WALK = 4,
     NPC_CONCRETE_WALK = 5,
     UI_Click = 6,
-    UI_Hover = 7
+    UI_Hover = 7,
+    KEY = 8,
 }

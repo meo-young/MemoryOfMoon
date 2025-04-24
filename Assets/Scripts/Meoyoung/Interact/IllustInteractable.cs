@@ -6,14 +6,14 @@ public class IllustInteractable : MonoBehaviour, IInteractable
 {
     public string objectID;
     public Sprite image;
-    private IllustManager _illustManager;
+    private IllustManager2 _illustManager2;
 
     void Start()
     {
-        _illustManager = FindObjectOfType<IllustManager>();
+        _illustManager2 = FindObjectOfType<IllustManager2>();
     }
     public void Interact()
     {
-        _illustManager.ShowIllust(image, objectID);
+        _illustManager2.ShowIllust(image, objectID);
     }
 }

@@ -14,5 +14,8 @@ public class ItemInfo : ScriptableObject
 
     [SerializeField] Sprite itemImg;
     public Sprite ItemImg { get { return itemImg; } }
+    
+    [SerializeField] AudioClip itemSound;
+    public AudioClip ItemSound { get { return itemSound; } }
 
 }

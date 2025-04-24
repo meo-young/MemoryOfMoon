@@ -11,7 +11,7 @@ public class MainWalkState : MonoBehaviour, IControllerState
 
     public void OnStateEnter(MainController controller)
     {
-        if (mc == null)
+        if (!mc)
             mc = controller;
         mc.anim.SetBool(hashWalk, true);
 
@@ -20,7 +20,7 @@ public class MainWalkState : MonoBehaviour, IControllerState
 
     public void OnStateUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             if(!inputArr.Contains(0))
                 inputArr.Add(0);
@@ -31,7 +31,7 @@ public class MainWalkState : MonoBehaviour, IControllerState
                 mc.movement.x = -1;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             if (!inputArr.Contains(1))
                 inputArr.Add(1);
@@ -42,7 +42,7 @@ public class MainWalkState : MonoBehaviour, IControllerState
                 mc.movement.y = -1;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             if (!inputArr.Contains(2))
                 inputArr.Add(2);
@@ -53,7 +53,7 @@ public class MainWalkState : MonoBehaviour, IControllerState
                 mc.movement.x = 1;
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             if (!inputArr.Contains(3))
                 inputArr.Add(3);
@@ -63,25 +63,25 @@ public class MainWalkState : MonoBehaviour, IControllerState
             else
                 mc.movement.y = 1;
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             mc.movement.x = 0;
             inputArr.Remove(0);
         }
 
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             mc.movement.y = 0;
             inputArr.Remove(1);
         }
 
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             mc.movement.x = 0;
             inputArr.Remove(2);
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.UpArrow))
         {
             mc.movement.y = 0;
             inputArr.Remove(3);

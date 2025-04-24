@@ -9,7 +9,7 @@ public class KannaAnimation : MonoBehaviour, IInteractable
     public Sprite image;
 
     private bool isSearched = false;
-    private IllustManager _illustManager;
+    private IllustManager2 _illustManager2;
     private PlayerController _playerController;
     private PlayerInventory playerInventory;
 
@@ -18,7 +18,7 @@ public class KannaAnimation : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _illustManager = FindObjectOfType<IllustManager>();
+        _illustManager2 = FindObjectOfType<IllustManager2>();
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         if (!particle.activeSelf)
@@ -32,7 +32,7 @@ public class KannaAnimation : MonoBehaviour, IInteractable
         {
             isSearched = true;
             _playerController.PaperSound();
-            _illustManager.ShowIllust(image, objectID);
+            _illustManager2.ShowIllust(image, objectID);
             _playerController.kannaAnim = true;
             playerInventory.AddItem(itemName);
             particle.SetActive(false);
@@ -40,7 +40,7 @@ public class KannaAnimation : MonoBehaviour, IInteractable
         else
         {
             _playerController.PaperSound();
-            _illustManager.ShowIllust(image, objectID);
+            _illustManager2.ShowIllust(image, objectID);
         }
     }
 

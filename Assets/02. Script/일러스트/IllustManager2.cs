@@ -2,13 +2,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class IllustManager : MonoBehaviour
+public class IllustManager2 : MonoBehaviour
 {
     private PlayerController _playerController;
     private MonologueManager2 _monologueManager;
     private SpriteRenderer spriteRenderer;
 
-    public static IllustManager Instance { get; private set; } // Singleton 인스턴스
+    public static IllustManager2 Instance { get; private set; } // Singleton 인스턴스
 
 
     private void Awake()

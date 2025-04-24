@@ -5,7 +5,8 @@ using static Constant;
 public class Door : MonoBehaviour, IInteractable, IInteraction
 {
     [SerializeField] DoorState doorState;   // 잠겨 있는지 여부
-
+    [SerializeField] ItemInfo itemInfo;
+    
     private Transform transferPoint; // 이동할 위치
     private AudioSource audioSource;
     private GameObject arrow;
@@ -28,6 +29,14 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
     /// </summary>
     public void Interact()
     {
+        if (itemInfo)
+        {
+            if (InventoryManager.instance.HasItem(itemInfo))
+            {
+                doorState = DoorState.Open;
+            }
+        }
+        
         switch (doorState)
         {
             case DoorState.Lock:
@@ -73,11 +82,11 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
             LocationText.instance.ShowLocationText(locationName);
         }
     }
+}
 
-    enum DoorState
-    {
-        Lock,
-        Open,
-        Close
-    }
+public enum DoorState
+{
+    Lock,
+    Open,
+    Close
 }

@@ -9,7 +9,7 @@ public class LibraryKey : MonoBehaviour, IInteractable
     public string afterObjectID;
     public string objectID;
     public Sprite image;
-    private IllustManager _illustManager;
+    private IllustManager2 _illustManager2;
     private PlayerInventory playerInventory;
     private MonologueManager2 _monologueManager;
     private PlayerController _playerController;
@@ -24,7 +24,7 @@ public class LibraryKey : MonoBehaviour, IInteractable
     {
         _monologueManager = FindObjectOfType<MonologueManager2>();
         playerInventory = FindObjectOfType<PlayerInventory>();
-        _illustManager = FindObjectOfType<IllustManager>();
+        _illustManager2 = FindObjectOfType<IllustManager2>();
         inventoryManager = FindObjectOfType<InventoryManager>();
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
@@ -42,7 +42,7 @@ public class LibraryKey : MonoBehaviour, IInteractable
             playerInventory.AddItem(keyItemName);
             inventoryManager.AddItem(libraryKey);
             _playerController.GetKeySound();
-            _illustManager.ShowIllust(image, afterObjectID);
+            _illustManager2.ShowIllust(image, afterObjectID);
             particle.SetActive(false);
         }
         else
