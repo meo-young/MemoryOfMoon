@@ -116,7 +116,12 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
-
+    #region Getter, Setter
+    public int GetCurrentDialogueCounter()
+    {
+        return currentDialogueCounter;
+    }
+    #endregion
 
     private void Update()
     {
