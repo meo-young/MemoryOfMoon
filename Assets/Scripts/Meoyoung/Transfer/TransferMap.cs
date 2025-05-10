@@ -45,10 +45,10 @@ public class TransferMap : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _showRegionName = FindObjectOfType<ShowRegionName>();
-        _camera = FindObjectOfType<Camera>();
-        _monologueManager = FindObjectOfType<MonologueManager2>();
-        playerInventory = FindObjectOfType<PlayerInventory>();
+        _showRegionName = FindFirstObjectByType<ShowRegionName>();
+        _camera = FindFirstObjectByType<Camera>();
+        _monologueManager = FindFirstObjectByType<MonologueManager2>();
+        playerInventory = FindFirstObjectByType<PlayerInventory>();
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();

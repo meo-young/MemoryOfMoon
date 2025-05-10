@@ -107,12 +107,9 @@ public class DialogueManager : MonoBehaviour
 
         isTransition = false;
         uEvent[eventCounter++]?.Invoke();
-        Debug.Log("Wait");
         yield return new WaitUntil(() => isTransition == true);
-        Debug.Log("Finishied");
         isTransition = false;
         this.gameObject.transform.localScale = Vector3.one;
-        Debug.Log("Scale one");
     }
     #endregion
 
@@ -175,17 +172,13 @@ public class DialogueManager : MonoBehaviour
     {
         // 대사 시작 이벤트 호출
         OnDialogueStarted?.Invoke();
-
-        Debug.Log("Invoke");
-
+        
         // Transition Type이 Before
         if (transitionType == 0 || transitionType == 2)
         {
             yield return StartCoroutine(TransitionEvent());
         }
-
-        Debug.Log("Transition Finished");
-
+        
         // 대사 출력 사운드 재생
         AudioClip clip = SoundManager.instance.sfxs[SFX.DIALOGUE].clips[UnityEngine.Random.Range(0, SoundManager.instance.sfxs[SFX.DIALOGUE].clips.Length)];
         dialogueAudioSource.clip = clip;

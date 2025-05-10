@@ -10,7 +10,6 @@ public class Chapter2 : MonoBehaviour
 {
     [Header("# 챕터 타임라인")]
     [SerializeField] PlayableDirector[] timeline;
-
     private int currentTimelineIndex = 0;
 
     private void Awake() {
@@ -50,11 +49,12 @@ public class Chapter2 : MonoBehaviour
             Debug.LogError("타임라인이 null입니다.");
             yield break;
         }
-
+        
         MainController.instance.ChangeWaitState();
 
         timeline.Play();
         yield return new WaitUntil(() => !timeline || timeline.state == PlayState.Paused);
         DialogueManager.instance.isTransition = true;
+  
     }
 }
