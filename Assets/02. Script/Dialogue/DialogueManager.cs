@@ -104,12 +104,31 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TransitionEvent()
     {
         this.gameObject.transform.localScale = Vector3.zero;
-
         isTransition = false;
         uEvent[eventCounter++]?.Invoke();
         yield return new WaitUntil(() => isTransition == true);
         isTransition = false;
         this.gameObject.transform.localScale = Vector3.one;
+    }
+
+    IEnumerator AfterTransitionEvent()
+    {
+        this.gameObject.transform.localScale = Vector3.zero;
+        isTransition = false;
+        uEvent[eventCounter++]?.Invoke();
+        yield return new WaitUntil(() => isTransition == true);
+        isTransition = false;
+        // 플레이어 움직일 수 있게 해야함
+        if(MainController.instance)
+            MainController.instance.ChangeIdleState();
+                
+        // 대화창 스케일 0
+        this.gameObject.transform.localScale = Vector3.zero;
+                
+        if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
+        {
+            currentDialogueCounter++;   
+        }
     }
     #endregion
 
@@ -122,38 +141,18 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (!dialogueFlag)
-            return;
+        if (!dialogueFlag) return;
 
         if (!Input.GetKeyDown(KeyCode.E)) return;
         dialogueFlag = false;
 
         if(transitionType is 1 or 2)
         {
-            StartCoroutine(TransitionEvent());
-        }
-            
-        if (nextIndex == -1)
-        {
-            // 플레이어 움직일 수 있게 해야함
-            if(MainController.instance)
-                MainController.instance.ChangeIdleState();
-            // 대화창 스케일 0
-            this.gameObject.transform.localScale = Vector3.zero;
-                
-            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
-            {
-                currentDialogueCounter++;   
-            }
+            StartCoroutine(AfterTransitionEvent());
         }
         else
         {
-            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
-            {
-                currentDialogueCounter++;   
-            }
-                
-            ShowDialogue();
+            CheckNextIndexMinus();
         }
     }
 
@@ -198,6 +197,33 @@ public class DialogueManager : MonoBehaviour
 
         // 대사 종료 이벤트 호출
         OnDialogueEnded?.Invoke();
+    }
+
+    private void CheckNextIndexMinus()
+    {
+        if (nextIndex == -1)
+        {
+            // 플레이어 움직일 수 있게 해야함
+            if(MainController.instance)
+                MainController.instance.ChangeIdleState();
+                
+            // 대화창 스케일 0
+            this.gameObject.transform.localScale = Vector3.zero;
+                
+            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
+            {
+                currentDialogueCounter++;   
+            }
+        }
+        else
+        {
+            if (currentDialogueCounter < loadDialogue.dialogueInfo.Count - 1)
+            {
+                currentDialogueCounter++;   
+            }
+                
+            ShowDialogue();
+        }
     }
 
 

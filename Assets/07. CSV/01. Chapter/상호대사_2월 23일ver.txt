@@ -47,7 +47,7 @@ ID	Character	Sprite 	Dialogue	Next Index	Transtion Type	Transition Description	T
 45	코즈키 칸나	Smile	그래?.. 앞으로도 켄타를 꼭 찾아 줘.	46			
 46	츠네모리 유우지1	Perplexity	??? 누나도 찾을 건데?	47			
 47	츠네모리 유우지1	Smile	기다리고 있어! 2층 다녀올께!	-1			
-48	코즈키 칸나	Default	....	-1	Before	플레이어가 2층에 올란간다. 카메라는 바로 2층으로 따라가지 않고 컷신으로 칸나를 보여준다.	
+48	코즈키 칸나	Default	....	-1	Both	플레이어가 2층에 올란간다. 카메라는 바로 2층으로 따라가지 않고 컷신으로 칸나를 보여준다.	
 49	츠네모리 유우지1	Default	찾았다고, 켄타!!	50	Before	켄타가 숨어있는 작업실에 간 플레이어는 흔들리고 있는 장롱을 발견한다. 플레이어는 e키를 눌러 장롱과 상호작용을 한다. 장롱 안에서 켄타는 나온다.	켄타가 장롱에서 나온 후
 50	코즈키 켄타	Default	… 역시 군인의 아들은 다른가??! 	51			
 51	코즈키 켄타	Default	나를 찾아내다니 대단하군!! 역시 유우지야!	52			
@@ -55,7 +55,7 @@ ID	Character	Sprite 	Dialogue	Next Index	Transtion Type	Transition Description	T
 53	츠네모리 유우지1	Perplexity	고작 방 안 장롱에 숨어놓고 내가 못 찾을 줄 알았어??	54			
 54	코즈키 켄타	Smile	우리 집에서는 절대 못 찾던걸?	55			
 55	츠네모리 유우지1	Perplexity	그니까 너네 집이랑 우리 집이 같은 구조인데..	56			
-56	코즈키 켄타	Smile	구조가 뭔데?!! 어려움 말 하지마!	57			
+56	코즈키 켄타	Smile	구조가 뭔데?!! 어려운 말 하지마!	57			
 57	츠네모리 유우지1	Perplexity	… 내려가자	-1	After	작업실을 보여주던 카메라가 Fade Out 하여 어두워진다.	
 58	코즈키 칸나	Perplexity	확실히 잘 찾네.. 역시 유우지야..	59	Before	카메라가 Fade In 하여 밝아지고 유우지, 켄타, 칸나는 거실에 서 있다. 이때 유우지는 현관 쪽을 보고 있고 켄타와 칸나는 유우지를 보고 있다.	밝아진 후
 59	코즈키 켄타	Angry	다시 하자! 이제 우리 집에서 하는거야!!	60			
