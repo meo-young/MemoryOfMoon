@@ -7,7 +7,7 @@ public class Monologue : MonoBehaviour, IInteraction
 
     public void Interact()
     {
-        MonologueManager.instance.ShowMonologue(this.gameObject.name);
+        MonologueManager_Before.instance.ShowMonologue(this.gameObject.name);
     }
 
     public void CanInteraction()

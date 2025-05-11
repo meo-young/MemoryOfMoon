@@ -4,8 +4,21 @@ using static Constant;
 
 public class Door : MonoBehaviour, IInteractable, IInteraction
 {
+    [Header("State")]
     [SerializeField] DoorState doorState;   // 잠겨 있는지 여부
+    [SerializeField] bool isFlippedX;
+    [SerializeField] bool isFlippedY;
+
+    [Header("Item")]
     [SerializeField] ItemInfo itemInfo;
+
+    [Header("Sound")]
+    [SerializeField] private AudioClip doorOpenSound;
+    [SerializeField] private AudioClip doorCloseSound;
+    [SerializeField] private AudioClip doorLockSound;
+    
+    [Header("Monologue")]
+    [SerializeField] string monologueText;
     
     private Transform transferPoint; // 이동할 위치
     private AudioSource audioSource;
@@ -21,6 +34,9 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
 
         if(arrow.activeSelf)
             arrow.SetActive(false);
+        
+        isFlippedX = false;
+        isFlippedY = false;
     }
     
     /// <summary>
@@ -34,29 +50,31 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
             if (InventoryManager.instance.HasItem(itemInfo))
             {
                 doorState = DoorState.Open;
+                InventoryManager.instance.RemoveItem(itemInfo);
             }
+        }
+        
+        if (MainController.instance)
+        {
+            MainController.instance.ChangeIdleState();   
         }
         
         switch (doorState)
         {
             case DoorState.Lock:
-                AddressableManager.instance.LoadAudioClip(AUDIO_ADDRESS_LOCKED_DOOR, audioSource);
+                PlayDoorSound(DoorState.Lock);
+                if(monologueText != "") MonologueManager.instance.ShowMonologue(monologueText);
                 break;
             case DoorState.Open:
-                AddressableManager.instance.LoadAudioClip(AUDIO_ADDRESS_OPEN_DOOR, audioSource);
+                PlayDoorSound(DoorState.Open);
                 Transfer();
                 break;
             case DoorState.Close:
-                AddressableManager.instance.LoadAudioClip(AUDIO_ADDRESS_CLOSE_DOOR, audioSource);
+                PlayDoorSound(DoorState.Close);
                 Transfer();
                 break;
             default:
                 break;
-        }
-
-        if (MainController.instance)
-        {
-            MainController.instance.ChangeIdleState();   
         }
     }
 
@@ -70,6 +88,11 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
         arrow.SetActive(false);
     }
 
+    public void UnlockDoor()
+    {
+        doorState = DoorState.Open;
+    }
+
     private void Transfer()
     {
         if (transferPoint)
@@ -80,6 +103,45 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
         if (LocationText.instance)
         {
             LocationText.instance.ShowLocationText(locationName);
+        }
+
+        if (isFlippedX)
+        {
+            MainController.instance.GetComponent<SpriteRenderer>().flipX = !MainController.instance.GetComponent<SpriteRenderer>().flipX;
+        }
+
+        if (isFlippedY)
+        {
+            MainController.instance.GetComponent<SpriteRenderer>().flipY = !MainController.instance.GetComponent<SpriteRenderer>().flipY;
+        }
+    }
+
+    private void PlayDoorSound(DoorState doorState)
+    {
+        switch (doorState)
+        {
+            case DoorState.Close:
+                if (doorCloseSound)
+                {
+                    audioSource.clip = doorCloseSound;
+                    audioSource.Play();
+                }
+
+                break;
+            case DoorState.Open:
+                if (doorOpenSound)
+                {
+                    audioSource.clip = doorOpenSound;
+                    audioSource.Play();
+                }
+                break;
+            case DoorState.Lock:
+                if (doorLockSound)
+                {
+                    audioSource.clip = doorLockSound;
+                    audioSource.Play();
+                }
+                break;
         }
     }
 }

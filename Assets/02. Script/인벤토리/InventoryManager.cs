@@ -29,14 +29,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] GameObject iv;
 
     private Dictionary<ItemInfo, int> inventory = new();
-
-    private void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.I))
-        {
-            iv.SetActive(!iv.activeSelf);
-        }*/
-    }
+    
     public void AddItem(ItemInfo itemName)
     {
         if (inventory.ContainsKey(itemName))
