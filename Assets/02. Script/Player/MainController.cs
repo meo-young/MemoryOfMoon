@@ -121,4 +121,17 @@ public class MainController : MonoBehaviour
     {
         ChangeState(_idleState);
     }
+
+    public void FlipX()
+    {
+        if (movement.x > 0) anim.SetFloat("DirX", -1.0f);
+        else if(movement.x < 0) anim.SetFloat("DirX", 1.0f);
+    }
+    
+    public void FlipY()
+    {
+        if (movement.y > 0) anim.SetFloat("DirY", -1.0f);
+        else if(movement.y < 0) anim.SetFloat("DirY", 1.0f);
+    }
+
 }

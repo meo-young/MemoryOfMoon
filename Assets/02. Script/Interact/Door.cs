@@ -107,12 +107,12 @@ public class Door : MonoBehaviour, IInteractable, IInteraction
 
         if (isFlippedX)
         {
-            MainController.instance.GetComponent<SpriteRenderer>().flipX = !MainController.instance.GetComponent<SpriteRenderer>().flipX;
+            MainController.instance.FlipX();
         }
 
         if (isFlippedY)
         {
-            MainController.instance.GetComponent<SpriteRenderer>().flipY = !MainController.instance.GetComponent<SpriteRenderer>().flipY;
+            MainController.instance.FlipY();
         }
     }
 
